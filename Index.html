@@ -40,7 +40,7 @@
 <body class="bg-slate-50 font-body text-slate-700 antialiased selection:bg-red-500 selection:text-white">
 
   <!-- Top Announcement Bar -->
-  <div
+  <!-- <div
     class="bg-brand-navy text-slate-300 text-xs py-2 px-6 flex justify-between items-center border-b border-slate-800">
     <div class="flex items-center gap-4">
       <span>📍 Bengaluru, Karnataka, India</span>
@@ -52,30 +52,19 @@
       <span class="text-slate-500">|</span>
       <span class="text-brand-red font-semibold">60+ Years Engineering Pedigree</span>
     </div>
-  </div>
+  </div> -->
 
   <!-- Main Navbar -->
   <header class="bg-white sticky top-0 z-50 shadow-sm border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
       <!-- Logo -->
-      <div class="flex items-center gap-3">
-        <div
-          class="w-10 h-10 rounded bg-brand-red flex items-center justify-center text-white font-heading text-xl font-bold tracking-wider shadow">
-          AT
-        </div>
-        <div>
-          <span class="font-heading text-2xl font-bold tracking-wider text-brand-slate uppercase block leading-none">
-            Ad<span class="text-brand-red">TEC</span>
-          </span>
-          <span class="text-[10px] tracking-widest text-slate-400 font-semibold uppercase block mt-0.5">
-            Electronic Instruments
-          </span>
-        </div>
-      </div>
+      <a href="Index.html" class="flex items-center py-0">
+        <img src="logo.png?v=2" alt="AdTEC Electronic Instruments" class="h-16 md:h-[72px] w-auto object-contain">
+      </a>
 
       <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-        <a href="#" class="text-brand-red border-b-2 border-brand-red pb-1 font-semibold">Home</a>
+      <nav class="hidden md:flex items-center gap-8 font-heading text-base font-medium tracking-wide">
+        <a href="#" class="text-brand-red border-b-2 border-brand-red pb-1">Home</a>
         <a href="#" class="text-slate-700 hover:text-brand-red transition pb-1">About Us</a>
         <a href="#" class="text-slate-700 hover:text-brand-red transition pb-1 flex items-center gap-1">
           COTS Products
@@ -83,18 +72,19 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
           </svg>
         </a>
-        <a href="#" class="text-slate-700 hover:text-brand-red transition pb-1">Custom Development</a>
-        <a href="#" class="text-slate-700 hover:text-brand-red transition pb-1">Services</a>
-        <a href="#" class="text-slate-700 hover:text-brand-red transition pb-1">Careers</a>
+        <!-- <a href="#" class="text-slate-700 hover:text-brand-red transition pb-1">Custom Development</a>
+            <a href="#" class="text-slate-700 hover:text-brand-red transition pb-1">Services</a> -->
+        <a href="#" class="text-slate-700 hover:text-brand-red transition pb-1">Contact Us</a>
       </nav>
 
       <!-- CTA -->
       <div>
-        <a href="#contact"
-          class="bg-brand-red hover:bg-brand-red-hover text-white text-sm font-semibold px-5 py-2.5 rounded-md transition shadow-sm hover:shadow inline-flex items-center gap-2">
+        <a href="#contact" class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm tracking-wide px-5
+            py-2.5 transition shadow-sm hover:shadow inline-flex items-center gap-2">
           <span>Request Quote</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+            </path>
           </svg>
         </a>
       </div>
@@ -107,8 +97,8 @@
 
       <div class="lg:col-span-7 space-y-6">
         <div
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-brand-red text-xs font-semibold uppercase tracking-wider">
-          <span class="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
+          class="inline-flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-200 text-brand-red text-xs font-mono font-semibold uppercase tracking-wider">
+          <span class="w-1.5 h-1.5 bg-brand-red animate-pulse"></span>
           Next-Gen Embedded Computing & RF Systems
         </div>
 
@@ -123,15 +113,15 @@
         </p>
 
         <div class="flex flex-wrap gap-4 pt-2">
-          <a href="#"
-            class="bg-brand-red hover:bg-brand-red-hover text-white font-medium px-6 py-3 rounded-md transition shadow hover:shadow-md inline-flex items-center gap-2">
+          <a href="#" class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-base tracking-wide
+            px-6 py-3 transition shadow hover:shadow-md inline-flex items-center gap-2">
             Explore COTS Catalog
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
           </a>
-          <a href="#"
-            class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium px-6 py-3 rounded-md transition border border-slate-200">
+          <a href="#" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-heading font-medium text-base tracking-wide px-6
+            py-3 transition border border-slate-300">
             Custom Product Design
           </a>
         </div>
@@ -156,15 +146,15 @@
       <!-- Hero Visual Card -->
       <div class="lg:col-span-5">
         <div
-          class="bg-slate-50 border border-slate-200 rounded-xl p-6 shadow-sm relative group hover:border-brand-red/40 transition">
+          class="bg-slate-50 border border-slate-200 p-6 shadow-sm relative group hover:border-brand-red/40 transition">
           <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-200 text-xs">
             <span class="font-mono text-brand-red font-semibold">FLAGSHIP // AT-cPCI-SBC</span>
-            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-mono text-[11px] font-semibold">Active
+            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 font-mono text-[11px] font-semibold">Active
               Series</span>
           </div>
 
           <div
-            class="aspect-[16/10] bg-white rounded-lg flex items-center justify-center p-6 border border-slate-100 shadow-inner">
+            class="aspect-[16/10] bg-white flex items-center justify-center p-6 border border-slate-100 shadow-inner">
             <img src="images/AT-CPCI-SBC-Celeronm.png" alt="AT-cPCI-SBC Product Image"
               class="max-h-48 object-contain drop-shadow-md">
           </div>
@@ -196,8 +186,8 @@
           High-Reliability Product Solutions
         </h2>
       </div>
-      <a href="#"
-        class="mt-4 md:mt-0 text-sm font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1">
+      <a href="#" class="mt-4 md:mt-0 font-heading text-sm font-medium tracking-wide text-brand-red hover:text-brand-red-hover
+        flex items-center gap-1">
         Browse all 20 categories →
       </a>
     </div>
@@ -207,10 +197,10 @@
 
       <!-- Card 1 -->
       <div
-        class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md hover:border-brand-red transition flex flex-col group">
+        class="bg-white border border-slate-200 overflow-hidden shadow-sm hover:shadow-md hover:border-brand-red transition flex flex-col group">
         <div class="p-6 bg-slate-50/50 flex-1 flex flex-col items-center justify-center border-b border-slate-100">
           <span
-            class="self-start text-[11px] font-mono font-semibold uppercase text-brand-red bg-red-50 border border-red-100 px-2 py-0.5 rounded mb-3">Avionics
+            class="self-start text-[11px] font-mono font-semibold uppercase text-brand-red bg-red-50 border border-red-100 px-2 py-0.5 mb-3">Avionics
             Bus</span>
           <img src="images/AT-PMC-429.png" alt="AT-PMC-429"
             class="h-32 object-contain group-hover:scale-105 transition duration-300">
@@ -229,10 +219,10 @@
 
       <!-- Card 2 -->
       <div
-        class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md hover:border-brand-red transition flex flex-col group">
+        class="bg-white border border-slate-200 overflow-hidden shadow-sm hover:shadow-md hover:border-brand-red transition flex flex-col group">
         <div class="p-6 bg-slate-50/50 flex-1 flex flex-col items-center justify-center border-b border-slate-100">
           <span
-            class="self-start text-[11px] font-mono font-semibold uppercase text-brand-red bg-red-50 border border-red-100 px-2 py-0.5 rounded mb-3">Single
+            class="self-start text-[11px] font-mono font-semibold uppercase text-brand-red bg-red-50 border border-red-100 px-2 py-0.5 mb-3">Single
             Board Computer</span>
           <img src="images/AT-VME-SBC-Corei7.png" alt="AT-VME-SBC-Corei7"
             class="h-32 object-contain group-hover:scale-105 transition duration-300">
@@ -251,10 +241,10 @@
 
       <!-- Card 3 -->
       <div
-        class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md hover:border-brand-red transition flex flex-col group">
+        class="bg-white border border-slate-200 overflow-hidden shadow-sm hover:shadow-md hover:border-brand-red transition flex flex-col group">
         <div class="p-6 bg-slate-50/50 flex-1 flex flex-col items-center justify-center border-b border-slate-100">
           <span
-            class="self-start text-[11px] font-mono font-semibold uppercase text-brand-red bg-red-50 border border-red-100 px-2 py-0.5 rounded mb-3">RF
+            class="self-start text-[11px] font-mono font-semibold uppercase text-brand-red bg-red-50 border border-red-100 px-2 py-0.5 mb-3">RF
             & Microwave</span>
           <img src="images/Cavity-Combline-Filters.png" alt="Cavity Combline Filters"
             class="h-32 object-contain group-hover:scale-105 transition duration-300">
@@ -285,7 +275,7 @@
           alternating row highlights.</p>
       </div>
 
-      <div class="border border-slate-200 rounded-lg overflow-hidden shadow-sm">
+      <div class="border border-slate-200 overflow-hidden shadow-sm">
         <div class="bg-slate-100 px-6 py-3 border-b border-slate-200 flex justify-between items-center">
           <span class="font-heading text-base font-bold text-brand-slate uppercase">AT-cPCI-SBC Hardware
             Architecture</span>
@@ -338,7 +328,7 @@
       <!-- Brand column -->
       <div class="space-y-4">
         <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded bg-brand-red flex items-center justify-center text-white font-heading font-bold">
+          <div class="w-8 h-8 bg-brand-red flex items-center justify-center text-white font-heading font-bold">
             AT</div>
           <span class="font-heading text-xl font-bold tracking-wider text-white uppercase">Ad<span
               class="text-brand-red">TEC</span></span>
@@ -392,8 +382,8 @@
           <div><strong class="text-slate-200">Email:</strong> sales@adtec.in</div>
           <div><strong class="text-slate-200">Support:</strong> support@adtec.in</div>
           <div class="pt-4">
-            <a href="mailto:sales@adtec.in"
-              class="bg-brand-red hover:bg-brand-red-hover text-white text-xs font-semibold px-4 py-2 rounded inline-block transition">
+            <a href="mailto:sales@adtec.in" class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium tracking-wide text-xs
+              px-5 py-2.5 inline-block transition shadow-sm hover:shadow">
               Inquire Now
             </a>
           </div>
