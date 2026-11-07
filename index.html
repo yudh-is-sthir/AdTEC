@@ -1,11 +1,17 @@
-<!-- This is a Rapid Prototype website -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdTEC Design Direction Preview — Clean Industrial</title>
+  <title>AdTEC Electronic Instruments | Rugged Embedded Systems & Avionics COTS</title>
+  <meta name="description" content="AdTEC Electronic Instruments Pvt Ltd specializes in end-to-end custom embedded product design, COTS hardware, and mission-critical avionics computing.">
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AdTEC Electronic Instruments | Rugged Embedded Systems & Avionics COTS">
+  <meta property="og:description" content="Mission-critical avionics computing, rugged COTS hardware, and custom embedded engineering certified to ISO 9001:2015.">
+  <meta property="og:image" content="assets/slide1.png">
 
   <!-- Favicon Links for All Browsers (Cache-Busted) -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png?v=5">
@@ -19,7 +25,6 @@
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -65,25 +70,23 @@
   <header class="bg-brand-navy sticky top-0 z-50 shadow-md border-b-2 border-brand-red">
     <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
       <!-- Logo -->
-      <a href="Index.html" class="flex items-center py-0">
+      <a href="index.html" class="flex items-center py-0">
         <img src="assets/logo.png?v=3" alt="AdTEC Electronic Instruments"
           class="h-16 md:h-[72px] w-auto object-contain">
       </a>
 
       <!-- Navigation Links -->
       <nav class="hidden md:flex items-center gap-8 font-heading text-base font-medium tracking-wide">
-        <a href="#" class="text-white border-b-2 border-brand-red pb-1">Home</a>
-        <a href="#" class="text-slate-300 hover:text-white transition pb-1">About Us</a>
-        <a href="#" class="text-slate-300 hover:text-white transition pb-1 flex items-center gap-1 group">
+        <a href="#hero-carousel" class="text-white border-b-2 border-brand-red pb-1">Home</a>
+        <a href="#main-content" class="text-slate-300 hover:text-white transition pb-1">About Us</a>
+        <a href="#products" class="text-slate-300 hover:text-white transition pb-1 flex items-center gap-1 group">
           COTS Products
           <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-white transition" fill="none" stroke="currentColor"
             viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
           </svg>
         </a>
-        <!-- <a href="#" class="text-slate-300 hover:text-white transition pb-1">Custom Development</a>
-            <a href="#" class="text-slate-300 hover:text-white transition pb-1">Services</a> -->
-        <a href="#" class="text-slate-300 hover:text-white transition pb-1">Contact Us</a>
+        <a href="#contact" class="text-slate-300 hover:text-white transition pb-1">Contact Us</a>
       </nav>
 
       <!-- CTA -->
@@ -584,14 +587,14 @@
   </main>
 
   <!-- Modern Dark Navy Footer -->
-  <footer
+  <footer id="contact"
     class="bg-brand-navy text-slate-300 pt-16 pb-12 border-t-2 border-brand-red relative bg-cover bg-center bg-no-repeat"
     style="background-image: url('assets/footer-background.png');">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 relative z-10">
 
       <!-- Brand column -->
       <div class="space-y-4">
-        <a href="Index.html" class="inline-block">
+        <a href="index.html" class="inline-block">
           <img src="assets/logo.png?v=3" alt="AdTEC Electronic Instruments" class="h-14 w-auto object-contain">
         </a>
         <p class="text-xs text-slate-400 leading-relaxed">
