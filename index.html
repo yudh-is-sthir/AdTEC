@@ -59,6 +59,112 @@
       }
     }
   </script>
+
+  <!-- Aerospace Flagship Animations & Interactive Styles -->
+  <style>
+    /* 1. Ken Burns Subtle Hardware Zoom */
+    .hero-slide.active {
+      animation: kenBurnsGlide 6.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes kenBurnsGlide {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.042);
+      }
+    }
+
+    /* 2. Staggered Hero Typography Entrance */
+    .hero-slide.active .slide-stagger-badge {
+      animation: slideFadeDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+    }
+    .hero-slide.active .slide-stagger-title {
+      animation: slideFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+    .hero-slide.active .slide-stagger-desc {
+      animation: slideFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+    }
+    .hero-slide.active .slide-stagger-cta {
+      animation: slideFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+    }
+
+    @keyframes slideFadeDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-14px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes slideFadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 3. 3D Tilt Card & Dynamic Laser Sheen */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.18s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+      will-change: transform;
+    }
+    .card-sheen {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+      z-index: 25;
+    }
+    .tilt-card:hover .card-sheen {
+      opacity: 1;
+    }
+
+    /* 4. Laser Slide Countdown Progress Bar */
+    #carousel-progress-bar {
+      box-shadow: 0 0 10px rgba(235, 33, 40, 0.9), 0 0 4px #ffffff;
+      will-change: width;
+    }
+
+    /* 5. Primary CTA Metallic Shimmer Sweep */
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -90%;
+      width: 55%;
+      height: 220%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.45), transparent);
+      transform: rotate(25deg);
+      transition: transform 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+      pointer-events: none;
+    }
+    .btn-shimmer:hover::after {
+      transform: translateX(450%) rotate(25deg);
+    }
+
+    /* 6. Specs Table Row Aerospace Indicator */
+    .spec-table-row {
+      transition: background-color 0.25s ease;
+      position: relative;
+    }
+    .spec-table-row:hover {
+      box-shadow: inset 4px 0 0 #eb2128;
+    }
+  </style>
 </head>
 
 <body class="bg-slate-50 font-body text-slate-700 antialiased selection:bg-red-500 selection:text-white">
@@ -107,7 +213,7 @@
       <!-- CTA (Desktop + Tablet + 4K) -->
       <div class="hidden sm:flex items-center">
         <a href="#contact"
-          class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-xs lg:text-sm 2xl:text-base tracking-wide px-3.5 py-2 lg:px-5 lg:py-2.5 2xl:px-7 2xl:py-3 transition shadow-sm hover:shadow inline-flex items-center gap-1.5 lg:gap-2 whitespace-nowrap">
+          class="btn-shimmer bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-xs lg:text-sm 2xl:text-base tracking-wide px-3.5 py-2 lg:px-5 lg:py-2.5 2xl:px-7 2xl:py-3 transition shadow-sm hover:shadow inline-flex items-center gap-1.5 lg:gap-2 whitespace-nowrap">
           <span>Request Quote</span>
           <svg class="w-3.5 h-3.5 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
@@ -171,25 +277,25 @@
 
         <div class="relative z-10 max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-4 sm:space-y-5 2xl:space-y-7">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 border border-brand-red bg-slate-950/40 backdrop-blur-sm text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
+            class="slide-stagger-badge inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 border border-brand-red bg-slate-950/40 backdrop-blur-sm text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
             Heritage & Standards
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
           </div>
 
           <h1
-            class="font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-white leading-[1.1] drop-shadow-sm uppercase">
+            class="slide-stagger-title font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-white leading-[1.1] drop-shadow-sm uppercase">
             Built to Extreme <span class="text-brand-red">Mil-Spec Standards</span>
           </h1>
 
-          <p class="text-slate-100 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body drop-shadow-sm">
+          <p class="slide-stagger-desc text-slate-100 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body drop-shadow-sm">
             Turnkey design-to-deployment engineering with 60+ years of pedigree—certified to ISO
             9001:2015 and compliant with MIL-STD-810G, 461E, and DO-254.
           </p>
 
-          <div class="pt-2">
+          <div class="slide-stagger-cta pt-2">
             <a href="mailto:sales@adtec.in"
-              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
+              class="btn-shimmer bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
               <span>Partner With Our Engineering Team</span>
               <svg class="w-4 h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
@@ -216,24 +322,24 @@
         class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center relative z-10 pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28 2xl:pb-36">
         <div class="relative z-10 max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-4 sm:space-y-5 2xl:space-y-7">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 bg-red-50 border border-red-200 text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
+            class="slide-stagger-badge inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 bg-red-50 border border-red-200 text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
             Mission Computing & Avionics
           </div>
 
           <h1
-            class="font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-brand-slate leading-[1.1] uppercase">
+            class="slide-stagger-title font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-brand-slate leading-[1.1] uppercase">
             Flight-Proven <span class="text-brand-red">Embedded Systems</span>
           </h1>
 
-          <p class="text-slate-600 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body">
+          <p class="slide-stagger-desc text-slate-600 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body">
             High-reliability computing architectures and avionics bus interfaces engineered for uncompromised
             reliability in extreme defense and airborne operations.
           </p>
 
-          <div class="pt-2">
+          <div class="slide-stagger-cta pt-2">
             <a href="#products"
-              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
+              class="btn-shimmer bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
               <span>Explore COTS Platforms</span>
               <svg class="w-4 h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
@@ -260,24 +366,24 @@
         class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center relative z-10 pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28 2xl:pb-36">
         <div class="relative z-10 max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-4 sm:space-y-5 2xl:space-y-7">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 bg-red-50 border border-red-200 text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
+            class="slide-stagger-badge inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 bg-red-50 border border-red-200 text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
             Radar & Communications
           </div>
 
           <h1
-            class="font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-brand-slate leading-[1.1] uppercase">
+            class="slide-stagger-title font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-brand-slate leading-[1.1] uppercase">
             Precision <span class="text-brand-red">RF & Microwave</span> Engineering
           </h1>
 
-          <p class="text-slate-600 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body">
+          <p class="slide-stagger-desc text-slate-600 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body">
             Advanced cavity, combline, and lumped component filter solutions delivering steep-skirt
             selectivity and ultra-low insertion loss up to 18 GHz.
           </p>
 
-          <div class="pt-2">
+          <div class="slide-stagger-cta pt-2">
             <a href="#products"
-              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
+              class="btn-shimmer bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
               <span>View RF Capabilities</span>
               <svg class="w-4 h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
@@ -300,26 +406,26 @@
         <div
           class="relative z-10 max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-4 sm:space-y-5 2xl:space-y-7 text-left sm:text-right flex flex-col items-start sm:items-end bg-slate-950/80 sm:bg-transparent p-4 sm:p-0 backdrop-blur-sm sm:backdrop-blur-none border border-slate-800/80 sm:border-0">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 border border-brand-red bg-transparent text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
+            class="slide-stagger-badge inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 border border-brand-red bg-transparent text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
             Lifecycle Extension
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
           </div>
 
           <h1
-            class="font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-white leading-[1.1] uppercase">
+            class="slide-stagger-title font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-white leading-[1.1] uppercase">
             Mitigate Lifecycle <span class="text-brand-red">Hardware</span><br>
             <span class="text-brand-red">Obsolescence</span>
           </h1>
 
-          <p class="text-slate-200 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body">
+          <p class="slide-stagger-desc text-slate-200 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body">
             100% form-fit-function hardware redesigns and FPGA IP core solutions to extend defense
             platform lifespans without modifying host software systems.
           </p>
 
-          <div class="pt-2">
+          <div class="slide-stagger-cta pt-2">
             <a href="mailto:sales@adtec.in"
-              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
+              class="btn-shimmer bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
               <span>Discover Obsolescence Solutions</span>
               <svg class="w-4 h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
@@ -402,6 +508,10 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
       </svg>
     </button>
+    <!-- Laser Slide Countdown Progress Bar -->
+    <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-slate-900/40 z-30 overflow-hidden pointer-events-none">
+      <div id="carousel-progress-bar" class="h-full bg-brand-red w-0"></div>
+    </div>
   </section>
 
   <!-- Main Content Area with Universal Background -->
@@ -431,7 +541,8 @@
 
         <!-- Card 1 -->
         <div
-          class="bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden">
+          class="tilt-card relative bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red transition-all duration-300 flex flex-col group overflow-hidden">
+          <div class="card-sheen"></div>
           <!-- Card Image Header -->
           <div class="h-52 md:h-56 lg:h-64 xl:h-72 2xl:h-80 3xl:h-96 relative border-b border-slate-100 overflow-hidden">
             <div
@@ -481,7 +592,8 @@
 
         <!-- Card 2 -->
         <div
-          class="bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden">
+          class="tilt-card relative bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red transition-all duration-300 flex flex-col group overflow-hidden">
+          <div class="card-sheen"></div>
           <!-- Card Image Header -->
           <div class="h-52 md:h-56 lg:h-64 xl:h-72 2xl:h-80 3xl:h-96 relative border-b border-slate-100 overflow-hidden">
             <div
@@ -531,7 +643,8 @@
 
         <!-- Card 3 (Centered on 2-col tablet, 3rd in row on desktop) -->
         <div
-          class="bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden md:col-span-2 lg:col-span-1 md:max-w-md md:w-full md:mx-auto lg:max-w-none lg:w-auto">
+          class="tilt-card relative bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red transition-all duration-300 flex flex-col group overflow-hidden md:col-span-2 lg:col-span-1 md:max-w-md md:w-full md:mx-auto lg:max-w-none lg:w-auto">
+          <div class="card-sheen"></div>
           <!-- Card Image Header -->
           <div class="h-52 md:h-56 lg:h-64 xl:h-72 2xl:h-80 3xl:h-96 relative border-b border-slate-100 overflow-hidden">
             <div
@@ -620,7 +733,7 @@
               </thead>
               <tbody class="divide-y divide-slate-300/70 font-mono"
                 style="text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95), 0 0 8px #ffffff;">
-                <tr class="transition-colors hover:bg-white/50"
+                <tr class="spec-table-row transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.08) 12%, rgba(255,255,255,0.62) 18%, rgba(255,255,255,0.62) 82%, rgba(255,255,255,0.08) 88%, rgba(255,255,255,0.08) 100%);">
                   <td
                     class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
@@ -628,7 +741,7 @@
                   <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">0°C to +60°C</td>
                   <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-brand-red font-bold">-40°C to +85°C</td>
                 </tr>
-                <tr class="transition-colors hover:bg-white/50"
+                <tr class="spec-table-row transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(248,250,252,0.06) 0%, rgba(248,250,252,0.06) 12%, rgba(248,250,252,0.50) 18%, rgba(248,250,252,0.50) 82%, rgba(248,250,252,0.06) 88%, rgba(248,250,252,0.06) 100%);">
                   <td
                     class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
@@ -636,7 +749,7 @@
                   <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">Air-Cooled (Forced Air)</td>
                   <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-900 font-bold">Conduction-Cooled (VITA 20)</td>
                 </tr>
-                <tr class="transition-colors hover:bg-white/50"
+                <tr class="spec-table-row transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.08) 12%, rgba(255,255,255,0.62) 18%, rgba(255,255,255,0.62) 82%, rgba(255,255,255,0.08) 88%, rgba(255,255,255,0.08) 100%);">
                   <td
                     class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
@@ -644,7 +757,7 @@
                   <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">3U CompactPCI (IEEE 1101.2)</td>
                   <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">3U CompactPCI Rugged Wedge</td>
                 </tr>
-                <tr class="transition-colors hover:bg-white/50"
+                <tr class="spec-table-row transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(248,250,252,0.06) 0%, rgba(248,250,252,0.06) 12%, rgba(248,250,252,0.50) 18%, rgba(248,250,252,0.50) 82%, rgba(248,250,252,0.06) 88%, rgba(248,250,252,0.06) 100%);">
                   <td
                     class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
@@ -652,7 +765,7 @@
                   <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">Linux, Windows XP/7</td>
                   <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-900 font-bold">VxWorks 6.x BSP, RTLinux</td>
                 </tr>
-                <tr class="transition-colors hover:bg-white/50"
+                <tr class="spec-table-row transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.08) 12%, rgba(255,255,255,0.62) 18%, rgba(255,255,255,0.62) 82%, rgba(255,255,255,0.08) 88%, rgba(255,255,255,0.08) 100%);">
                   <td
                     class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
@@ -784,24 +897,107 @@
         }
       })();
 
-    // 2. Hero Carousel Controller with Touch-Swipe
+    // 2. Hero Carousel Controller with Touch-Swipe & Aerospace Telemetry
     (function () {
       const slides = document.querySelectorAll('.hero-slide');
       const dots = document.querySelectorAll('.carousel-dot');
       const prevBtn = document.getElementById('carousel-prev');
       const nextBtn = document.getElementById('carousel-next');
       const carouselEl = document.getElementById('hero-carousel');
+      const progressBar = document.getElementById('carousel-progress-bar');
+      const statVals = document.querySelectorAll('.stat-val');
 
       let currentIndex = 0;
       let timer = null;
       const slideInterval = 6000;
+
+      // Laser countdown animation
+      function resetProgressBar() {
+        if (!progressBar) return;
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+        void progressBar.offsetWidth; // Force reflow
+        progressBar.style.transition = 'width ' + slideInterval + 'ms linear';
+        progressBar.style.width = '100%';
+      }
+
+      function pauseProgressBar() {
+        if (!progressBar) return;
+        const computedWidth = window.getComputedStyle(progressBar).width;
+        progressBar.style.transition = 'none';
+        progressBar.style.width = computedWidth;
+      }
+
+      // Aerospace Telemetry Counter Animation
+      function triggerTelemetryCounters() {
+        if (!statVals || statVals.length < 4) return;
+
+        // Stat 1: 0 -> 60+ YRS
+        const stat1 = statVals[0];
+        let c1 = 0;
+        const target1 = 60;
+        const duration1 = 900;
+        const step1 = Math.ceil(duration1 / (target1 / 3));
+        const t1 = setInterval(() => {
+          c1 += 3;
+          if (c1 >= target1) {
+            c1 = target1;
+            clearInterval(t1);
+          }
+          stat1.textContent = c1 + '+ YRS';
+        }, step1);
+
+        // Stat 2: 0 -> 100+ COTS
+        const stat2 = statVals[1];
+        let c2 = 0;
+        const target2 = 100;
+        const duration2 = 900;
+        const step2 = Math.ceil(duration2 / (target2 / 5));
+        const t2 = setInterval(() => {
+          c2 += 5;
+          if (c2 >= target2) {
+            c2 = target2;
+            clearInterval(t2);
+          }
+          stat2.textContent = c2 + '+ COTS';
+        }, step2);
+
+        // Stat 3 & 4: Quick Avionics Telemetry Scramble
+        const scrambleChars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ#$*';
+        function scrambleElement(el, targetText, duration) {
+          let elapsed = 0;
+          const interval = 40;
+          const timer = setInterval(() => {
+            elapsed += interval;
+            if (elapsed >= duration) {
+              el.textContent = targetText;
+              clearInterval(timer);
+            } else {
+              let scram = '';
+              for (let i = 0; i < targetText.length; i++) {
+                if (targetText[i] === ' ' || targetText[i] === '-') {
+                  scram += targetText[i];
+                } else if (i < Math.floor((elapsed / duration) * targetText.length)) {
+                  scram += targetText[i];
+                } else {
+                  scram += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                }
+              }
+              el.textContent = scram;
+            }
+          }, interval);
+        }
+
+        scrambleElement(statVals[2], 'MIL-STD', 650);
+        scrambleElement(statVals[3], 'ISO 9001', 750);
+      }
 
       function goToSlide(index) {
         if (index === currentIndex) return;
 
         // Hide current slide
         const currentSlide = slides[currentIndex];
-        currentSlide.classList.remove('opacity-100', 'z-10', 'translate-x-0', 'relative');
+        currentSlide.classList.remove('opacity-100', 'z-10', 'translate-x-0', 'relative', 'active');
         currentSlide.classList.add('opacity-0', 'z-0', 'translate-x-8', 'absolute', 'inset-0', 'hidden');
 
         // Target new slide
@@ -817,7 +1013,6 @@
         }
 
         // Adapt static statistics text colors to match the slide background
-        const statVals = document.querySelectorAll('.stat-val');
         const statLabels = document.querySelectorAll('.stat-lbl');
         statVals.forEach((val) => {
           val.className = `stat-val font-heading text-lg sm:text-2xl md:text-3xl 2xl:text-4xl 3xl:text-5xl font-bold tracking-tight transition-colors duration-700 ${isDark ? 'text-white' : 'text-brand-slate'}`;
@@ -848,7 +1043,11 @@
 
         // Show new slide
         nextSlide.classList.remove('opacity-0', 'z-0', 'translate-x-8', 'absolute', 'inset-0', 'hidden');
-        nextSlide.classList.add('opacity-100', 'z-10', 'translate-x-0', 'relative');
+        nextSlide.classList.add('opacity-100', 'z-10', 'translate-x-0', 'relative', 'active');
+
+        // Reset progress bar & run counters
+        resetProgressBar();
+        triggerTelemetryCounters();
       }
 
       function nextSlide() {
@@ -861,11 +1060,13 @@
 
       function startTimer() {
         stopTimer();
+        resetProgressBar();
         timer = setInterval(nextSlide, slideInterval);
       }
 
       function stopTimer() {
         if (timer) clearInterval(timer);
+        pauseProgressBar();
       }
 
       // Event listeners
@@ -914,6 +1115,39 @@
       }
 
       startTimer();
+      triggerTelemetryCounters();
+    })();
+
+    // 3. 3D Tilt Card & Dynamic Flashlight Sheen Controller
+    (function () {
+      const cards = document.querySelectorAll('.tilt-card');
+      if (!cards || cards.length === 0) return;
+
+      cards.forEach((card) => {
+        const sheen = card.querySelector('.card-sheen');
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const xPercent = (x / rect.width) - 0.5;
+          const yPercent = (y / rect.height) - 0.5;
+
+          const rotateX = (-yPercent * 10).toFixed(2);
+          const rotateY = (xPercent * 10).toFixed(2);
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.025, 1.025, 1.025)`;
+
+          if (sheen) {
+            sheen.style.background = `radial-gradient(circle 340px at ${x}px ${y}px, rgba(235, 33, 40, 0.22), rgba(255, 255, 255, 0.12) 35%, transparent 75%)`;
+          }
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
     })();
   </script>
 </body>
