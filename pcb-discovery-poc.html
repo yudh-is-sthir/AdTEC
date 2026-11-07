@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdTEC | Interactive PCB Magnifying Loupe Discovery</title>
+  <title>AdTEC | Interactive PCB Discovery — Glass PCB & Spotlight Mockup</title>
   <meta name="description"
-    content="Interactive visual effect featuring an optical magnifying loupe revealing and magnifying PCB circuit lines using base2.png over the CAD engineering grid.">
+    content="Interactive engineering effect featuring a mouse-following PCB spotlight, glass PCB reveal on product cards, and technical frosted-glass specifications table.">
 
   <!-- Favicon Links -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png?v=5">
@@ -53,176 +53,203 @@
   </script>
 
   <style>
-    /* Container isolation */
+    /* Isolation wrapper */
     .pcb-discovery-wrapper {
       position: relative;
       isolation: isolate;
     }
 
-    /* Ambient cursor electric-blue glow aura */
-    .pcb-cursor-aura {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9;
-      opacity: var(--pcb-opacity, 0);
-      transition: opacity 0.35s ease;
-      background: radial-gradient(
-        circle calc(var(--pcb-radius, 160px) + 24px) at var(--pcb-x, -500px) var(--pcb-y, -500px),
-        rgba(14, 165, 233, 0.14) 0%,
-        rgba(14, 165, 233, 0.04) 55%,
-        transparent 75%
-      );
-    }
-
-    /* Hardware-accelerated radial reveal mask */
-    .pcb-schematic-mask-layer {
+    /* 1. MAIN BACKGROUND — PCB SPOTLIGHT MASK LAYER */
+    .pcb-spotlight-layer {
       position: absolute;
       inset: 0;
       pointer-events: none;
       z-index: 10;
-      opacity: var(--pcb-opacity, 0);
-      transition: opacity 0.35s ease;
+      opacity: var(--spotlight-opacity, 0);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: mask-image, -webkit-mask-image, opacity;
       -webkit-mask-image: radial-gradient(
-        circle var(--pcb-radius, 160px) at var(--pcb-x, -500px) var(--pcb-y, -500px),
+        circle var(--spotlight-radius, 300px) at var(--mouse-x, -600px) var(--mouse-y, -600px),
         rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.96) 50%,
-        rgba(0, 0, 0, 0.5) 78%,
+        rgba(0, 0, 0, 0.92) 42%,
+        rgba(0, 0, 0, 0.35) 74%,
         rgba(0, 0, 0, 0) 100%
       );
       mask-image: radial-gradient(
-        circle var(--pcb-radius, 160px) at var(--pcb-x, -500px) var(--pcb-y, -500px),
+        circle var(--spotlight-radius, 300px) at var(--mouse-x, -600px) var(--mouse-y, -600px),
         rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.96) 50%,
-        rgba(0, 0, 0, 0.5) 78%,
+        rgba(0, 0, 0, 0.92) 42%,
+        rgba(0, 0, 0, 0.35) 74%,
         rgba(0, 0, 0, 0) 100%
       );
     }
 
-    /* Optical Magnifying Lens layer: scales base2.png centered precisely at the cursor */
-    .pcb-base-image {
+    /* Soft ambient cyan aura around cursor spotlight */
+    .pcb-spotlight-aura {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('pcb-interactive/base2.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      mix-blend-mode: multiply; /* Blends traces directly onto CAD grid */
-      transform-origin: var(--pcb-x, 50%) var(--pcb-y, 50%);
-      transform: scale(var(--pcb-zoom, 1.35));
-      will-change: transform, transform-origin;
-    }
-
-    /* Magnifier Loupe Glass Bezel & Optical Reticle */
-    .pcb-magnifier-bezel {
-      position: absolute;
       pointer-events: none;
-      z-index: 12;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      width: calc(var(--pcb-radius, 160px) * 2);
-      height: calc(var(--pcb-radius, 160px) * 2);
-      top: var(--pcb-y, -500px);
-      left: var(--pcb-x, -500px);
-      border: 1.5px solid rgba(14, 165, 233, 0.55);
-      box-shadow: 
-        0 0 20px rgba(14, 165, 233, 0.22),
-        inset 0 0 18px rgba(14, 165, 233, 0.12),
-        0 8px 24px rgba(11, 25, 44, 0.2);
-      opacity: var(--pcb-opacity, 0);
-      transition: opacity 0.35s ease;
-      box-sizing: border-box;
-    }
-
-    /* Loupe Curved Glass Specular Highlight Reflection */
-    .pcb-magnifier-bezel::before {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      border-radius: 50%;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.25) 0%,
-        rgba(255, 255, 255, 0.05) 38%,
-        transparent 65%
+      z-index: 9;
+      opacity: var(--spotlight-opacity, 0);
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      background: radial-gradient(
+        circle calc(var(--spotlight-radius, 300px) * 0.95) at var(--mouse-x, -600px) var(--mouse-y, -600px),
+        rgba(56, 189, 248, 0.12) 0%,
+        rgba(14, 165, 233, 0.05) 50%,
+        transparent 80%
       );
-      pointer-events: none;
     }
 
-    /* Cardinal Optical Alignment Ticks (AdTEC Red) */
-    .pcb-magnifier-bezel .tick-top {
-      position: absolute;
-      top: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1.5px;
-      height: 9px;
-      background: #eb2128;
+    /* PCB Vector line definitions */
+    .trace-blue {
+      stroke: #2563eb;
+      stroke-width: 1.35;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 1px rgba(37, 99, 235, 0.4));
     }
-    .pcb-magnifier-bezel .tick-bottom {
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1.5px;
-      height: 9px;
-      background: #eb2128;
+    .trace-blue-light {
+      stroke: #38bdf8;
+      stroke-width: 1.1;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
-    .pcb-magnifier-bezel .tick-left {
-      position: absolute;
-      top: 50%;
-      left: -5px;
-      transform: translateY(-50%);
-      height: 1.5px;
-      width: 9px;
-      background: #eb2128;
+    .trace-blue-bus {
+      stroke: #0284c7;
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linecap: square;
     }
-    .pcb-magnifier-bezel .tick-right {
-      position: absolute;
-      top: 50%;
-      right: -5px;
-      transform: translateY(-50%);
-      height: 1.5px;
-      width: 9px;
-      background: #eb2128;
+    .trace-red {
+      stroke: #eb2128;
+      stroke-width: 1.45;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 2px rgba(235, 33, 40, 0.6));
+    }
+    .via-blue {
+      fill: #ffffff;
+      stroke: #0284c7;
+      stroke-width: 1.4;
+    }
+    .via-red {
+      fill: #ffffff;
+      stroke: #eb2128;
+      stroke-width: 1.4;
+    }
+    .comp-orange {
+      fill: #f97316;
+      stroke: #ea580c;
+      stroke-width: 0.75;
+      filter: drop-shadow(0 0 1.5px rgba(249, 115, 22, 0.6));
     }
 
-    /* Tilt Card styling matching index.html */
-    .tilt-card {
+    /* 2. PRODUCT CARDS — GLASS PCB REVEAL */
+    .glass-pcb-card {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid rgba(203, 213, 225, 0.85);
+      box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+      transition: background 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.35s ease,
+                  box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       transform-style: preserve-3d;
-      transition: transform 0.18s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
-      will-change: transform;
+      will-change: transform, box-shadow;
+      overflow: hidden;
     }
+
+    /* On hover: switch to engineered frosted glass reveal */
+    .glass-pcb-card:hover {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(12px) saturate(160%);
+      -webkit-backdrop-filter: blur(12px) saturate(160%);
+      border-color: rgba(235, 33, 40, 0.45);
+      box-shadow: 0 20px 35px -10px rgba(11, 25, 44, 0.12),
+                  0 0 25px rgba(14, 165, 233, 0.12);
+      transform: translateY(-4px);
+    }
+
+    /* Card underlay PCB artwork: revealed smoothly on card hover */
+    .card-pcb-underlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1;
+      overflow: hidden;
+    }
+    .glass-pcb-card:hover .card-pcb-underlay {
+      opacity: 0.65;
+    }
+
+    /* Card sheen highlight */
     .card-sheen {
       pointer-events: none;
       position: absolute;
       inset: 0;
       opacity: 0;
       transition: opacity 0.3s ease;
-      border-radius: inherit;
       z-index: 25;
     }
-    .tilt-card:hover .card-sheen {
+    .glass-pcb-card:hover .card-sheen {
       opacity: 1;
     }
 
-    /* Accessibility: Disable on touch devices and reduced motion */
+    /* 3. SPECIFICATIONS TABLE — TECHNICAL GLASS EFFECT */
+    .table-glass-container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(14px) saturate(150%);
+      -webkit-backdrop-filter: blur(14px) saturate(150%);
+      border: 1px solid rgba(203, 213, 225, 0.85);
+      box-shadow: 0 20px 45px -12px rgba(11, 25, 44, 0.08), 0 0 20px rgba(14, 165, 233, 0.06);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* Table underlay PCB traces: clearly visible through translucent cells */
+    .table-pcb-underlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.75;
+    }
+
+    /* Translucent table rows allowing PCB traces to shine through */
+    .spec-table-row {
+      position: relative;
+      z-index: 2;
+      transition: background-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .spec-table-row:nth-child(odd) {
+      background: rgba(255, 255, 255, 0.52);
+    }
+    .spec-table-row:nth-child(even) {
+      background: rgba(248, 250, 252, 0.38);
+    }
+    .spec-table-row:hover {
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: inset 4px 0 0 #eb2128;
+    }
+
+    /* Accessibility: Disable hover effects on touch devices and reduced motion */
     @media (hover: none) or (pointer: coarse) {
-      .pcb-schematic-mask-layer,
-      .pcb-cursor-aura,
-      .pcb-magnifier-bezel {
+      .pcb-spotlight-layer,
+      .pcb-spotlight-aura {
         display: none !important;
       }
     }
-
     @media (prefers-reduced-motion: reduce) {
-      .pcb-schematic-mask-layer,
-      .pcb-cursor-aura,
-      .pcb-magnifier-bezel {
-        display: none !important;
+      .pcb-spotlight-layer,
+      .pcb-spotlight-aura,
+      .card-pcb-underlay {
+        transition: none !important;
       }
     }
   </style>
@@ -230,7 +257,7 @@
 
 <body class="bg-slate-50 font-body text-slate-700 antialiased selection:bg-red-500 selection:text-white">
 
-  <!-- Prototype Top Navigation Banner (Preserved exact design) -->
+  <!-- Main Navbar (Preserved exact design) -->
   <header class="bg-brand-navy sticky top-0 z-50 shadow-md border-b-2 border-brand-red">
     <div
       class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 h-16 sm:h-20 flex justify-between items-center">
@@ -239,56 +266,177 @@
         <img src="assets/logo.png?v=3" alt="AdTEC Electronic Instruments"
           class="h-10 sm:h-12 w-auto object-contain">
         <span class="hidden sm:inline-block px-2.5 py-0.5 text-[11px] font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/10 border border-brand-red/40 rounded">
-          PCB Magnifying Loupe POC (base2.png)
+          Interaction Design Mockup
         </span>
       </a>
 
-      <!-- Quick Nav -->
-      <div class="flex items-center gap-4 text-xs font-mono">
-        <a href="index.html" class="text-slate-300 hover:text-white transition flex items-center gap-1.5 bg-slate-800/80 px-3 py-1.5 border border-slate-700">
-          <span>← Back to Live Website</span>
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-8 font-heading text-sm lg:text-base font-medium tracking-wide">
+        <a href="#hero" class="text-white border-b-2 border-brand-red pb-1">Home</a>
+        <a href="#about" class="text-slate-300 hover:text-white transition pb-1">About Us</a>
+        <a href="#products" class="text-slate-300 hover:text-white transition pb-1 flex items-center gap-1">
+          <span>COTS Products</span>
+          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </a>
+        <a href="#contact" class="text-slate-300 hover:text-white transition pb-1">Contact Us</a>
+      </nav>
+
+      <!-- CTA -->
+      <div class="flex items-center gap-3">
+        <a href="#contact"
+          class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-xs lg:text-sm tracking-wide px-4 py-2 transition shadow-sm inline-flex items-center gap-1.5">
+          <span>Request Quote</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Interactive Proof of Concept Status Notification -->
+  <!-- Prototype Interactive Guideline Status Bar -->
   <div class="bg-brand-navy/95 border-b border-cyan-900/60 text-slate-300 text-xs py-2.5 px-4 sm:px-8 flex flex-wrap items-center justify-between gap-3 shadow-inner">
     <div class="flex items-center gap-2 font-mono">
       <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-      <span class="text-cyan-300 font-semibold uppercase">Optical Magnifying Loupe Active:</span>
-      <span class="text-slate-200">Move your mouse across the CAD grid. The PCB lines are revealed and magnified under the optical inspection lens.</span>
+      <span class="text-cyan-300 font-semibold uppercase">Mockup Active:</span>
+      <span class="text-slate-200">1. Move cursor across CAD grid for PCB spotlight. 2. Hover cards for glass PCB reveal. 3. Inspect technical glass table.</span>
     </div>
     <div class="flex items-center gap-3 font-mono text-[11px]">
-      <span class="text-emerald-400 font-semibold" id="top-zoom-badge">Zoom: 1.35x</span>
+      <span class="text-brand-red font-semibold">AdTEC Red & Muted Blue</span>
       <span class="text-slate-600">|</span>
-      <span class="text-slate-400">Target: <code class="text-cyan-300">base2.png</code></span>
+      <span class="text-amber-400 font-semibold">Orange SMT Components</span>
+      <span class="text-slate-600">|</span>
+      <span class="text-emerald-400">Frosted Glass</span>
     </div>
   </div>
 
-  <!-- MAIN WRAPPER WITH CAD GRID BACKGROUND -->
+  <!-- MAIN WRAPPER WITH CAD ENGINEERING GRID BACKGROUND -->
   <!-- Exact background implementation from index.html (assets/background2.png) -->
   <main id="main-content" class="relative bg-slate-100 pcb-discovery-wrapper min-h-screen overflow-hidden"
     style="background-image: url('assets/background2.png'); background-position: center top; background-repeat: repeat-y; background-size: min(100vw, 2448px) auto;">
 
-    <!-- 1. Ambient Blueprint Glow Aura under cursor -->
-    <div id="pcb-cursor-aura" class="pcb-cursor-aura"></div>
+    <!-- 1. AMBIENT SOFT BLUE GLOW AURA BENEATH ARTWORK -->
+    <div id="pcb-spotlight-aura" class="pcb-spotlight-aura"></div>
 
-    <!-- 2. Circular Radial Mask Layer revealing & magnifying base2.png -->
-    <div id="pcb-schematic-layer" class="pcb-schematic-mask-layer">
-      <div id="pcb-base-image-el" class="pcb-base-image"></div>
+    <!-- 2. MAIN BACKGROUND PCB SPOTLIGHT MASK LAYER -->
+    <div id="pcb-spotlight-layer" class="pcb-spotlight-layer">
+      <!-- Full Vector PCB Blueprint matching mockup aesthetic -->
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 1400">
+        <defs>
+          <!-- Soft translucent blue surface fill -->
+          <radialGradient id="soft-blue-surface" cx="60%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.14" />
+            <stop offset="60%" stop-color="#0284c7" stop-opacity="0.06" />
+            <stop offset="100%" stop-color="#0284c7" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        <!-- Soft blue translucent surface wash beneath artwork -->
+        <rect x="0" y="0" width="1920" height="1400" fill="url(#soft-blue-surface)" />
+
+        <!-- ============================================== -->
+        <!-- BACKGROUND PCB TRACES (BLUE, RED, ORANGE SMT)  -->
+        <!-- ============================================== -->
+
+        <!-- A. RIGHT-SIDE & CENTER BLUE TRACE NETWORK -->
+        <g id="main-blue-traces">
+          <!-- Fine multi-line bus lines routing down and across -->
+          <path d="M 1250 140 v 220 l 45 45 h 380 l 60 60 v 350" class="trace-blue-bus" />
+          <path d="M 1265 140 v 215 l 45 45 h 375 l 60 60 v 355" class="trace-blue" />
+          <path d="M 1280 140 v 210 l 45 45 h 370 l 60 60 v 360" class="trace-blue" />
+          <path d="M 1295 140 v 205 l 45 45 h 365 l 60 60 v 365" class="trace-blue-light" />
+          <path d="M 1310 140 v 200 l 45 45 h 360 l 60 60 v 370" class="trace-blue" />
+
+          <!-- High-speed 45-degree angle diagonal branches -->
+          <path d="M 1120 480 l 80 -80 h 180 l 50 50 v 140" class="trace-blue" />
+          <path d="M 1135 480 l 75 -75 h 175 l 50 50 v 135" class="trace-blue-light" />
+          <path d="M 1150 480 l 70 -70 h 170 l 50 50 v 130" class="trace-blue" />
+
+          <!-- Serpentine delay-tuning wiggle trace -->
+          <path d="M 1380 320 h 40 l 12 -12 h 12 l 12 12 h 12 l 12 -12 h 12 l 12 12 h 12 l 12 -12 h 12 l 12 12 h 60" class="trace-blue" />
+
+          <!-- Circular radar / test point ring near center (Visible in mockup) -->
+          <circle cx="1140" cy="680" r="48" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.8" />
+          <circle cx="1140" cy="680" r="32" fill="none" stroke="#0284c7" stroke-width="1.4" opacity="0.7" />
+          <circle cx="1140" cy="680" r="16" fill="none" stroke="#2563eb" stroke-width="1.2" />
+          <circle cx="1140" cy="680" r="4.5" class="via-blue" />
+
+          <!-- Via clusters with center drill clearance -->
+          <circle cx="1250" cy="360" r="4.5" class="via-blue" />
+          <circle cx="1295" cy="345" r="4.5" class="via-blue" />
+          <circle cx="1695" cy="405" r="4.5" class="via-blue" />
+          <circle cx="1755" cy="465" r="4.5" class="via-blue" />
+          <circle cx="1450" cy="480" r="4.5" class="via-blue" />
+          <circle cx="1470" cy="480" r="4.5" class="via-blue" />
+          <circle cx="1490" cy="480" r="4.5" class="via-blue" />
+
+          <!-- Via stitching array (Right margin) -->
+          <g transform="translate(1780, 520)">
+            <circle cx="0" cy="0" r="3.5" class="via-blue" /><circle cx="20" cy="0" r="3.5" class="via-blue" />
+            <circle cx="0" cy="20" r="3.5" class="via-blue" /><circle cx="20" cy="20" r="3.5" class="via-blue" />
+            <circle cx="0" cy="40" r="3.5" class="via-blue" /><circle cx="20" cy="40" r="3.5" class="via-blue" />
+            <circle cx="0" cy="60" r="3.5" class="via-blue" /><circle cx="20" cy="60" r="3.5" class="via-blue" />
+            <circle cx="0" cy="80" r="3.5" class="via-blue" /><circle cx="20" cy="80" r="3.5" class="via-blue" />
+          </g>
+        </g>
+
+        <!-- B. LEFT-SIDE AdTEC-RED BRANCHES & TRACES -->
+        <g id="main-red-traces">
+          <!-- Main red high-speed line routing down toward the specs table -->
+          <path d="M 680 180 v 140 l -60 60 h -220 l -50 50 v 280" class="trace-red" />
+          <path d="M 695 180 v 135 l -60 60 h -215 l -50 50 v 285" class="trace-red" />
+          <path d="M 665 180 v 145 l -60 60 h -225 l -50 50 v 275" class="trace-red" opacity="0.8" />
+
+          <!-- Cross-branches into table region -->
+          <path d="M 400 440 l -80 80 h -160 l -40 40 v 120" class="trace-red" />
+          <path d="M 415 440 l -75 75 h -165 l -40 40 v 125" class="trace-red" />
+
+          <!-- Red Test Point Vias with white center -->
+          <circle cx="680" cy="320" r="5" class="via-red" />
+          <circle cx="400" cy="440" r="5" class="via-red" />
+          <circle cx="320" cy="520" r="5" class="via-red" />
+          <circle cx="160" cy="600" r="5" class="via-red" />
+          <circle cx="120" cy="640" r="5" class="via-red" />
+        </g>
+
+        <!-- C. SMALL ORANGE SMT COMPONENTS & PADS (Matching Mockup) -->
+        <g id="main-orange-components">
+          <!-- SMT 0805 Passives (Orange capacitors/resistors) -->
+          <!-- Near center cursor spotlight area -->
+          <rect x="1080" y="620" width="16" height="10" rx="1.5" class="comp-orange" />
+          <rect x="1105" y="620" width="16" height="10" rx="1.5" class="comp-orange" />
+          <rect x="1080" y="645" width="16" height="10" rx="1.5" class="comp-orange" />
+          <rect x="1105" y="645" width="16" height="10" rx="1.5" class="comp-orange" />
+
+          <!-- Right side SMT footprints (as in mockup) -->
+          <rect x="1720" y="320" width="22" height="14" rx="2" class="comp-orange" />
+          <rect x="1750" y="320" width="22" height="14" rx="2" class="comp-orange" />
+          <rect x="1720" y="350" width="22" height="14" rx="2" class="comp-orange" />
+          <rect x="1750" y="350" width="22" height="14" rx="2" class="comp-orange" />
+
+          <rect x="1640" y="680" width="30" height="24" rx="2.5" class="comp-orange" opacity="0.9" />
+          <rect x="1685" y="680" width="30" height="24" rx="2.5" class="comp-orange" opacity="0.9" />
+
+          <!-- Center gutter orange component arrays -->
+          <rect x="940" y="420" width="18" height="11" rx="1.5" class="comp-orange" />
+          <rect x="965" y="420" width="18" height="11" rx="1.5" class="comp-orange" />
+          <rect x="990" y="420" width="18" height="11" rx="1.5" class="comp-orange" />
+
+          <!-- Left red branch orange terminations -->
+          <rect x="360" y="360" width="14" height="9" rx="1" class="comp-orange" />
+          <rect x="380" y="360" width="14" height="9" rx="1" class="comp-orange" />
+          <rect x="240" y="480" width="14" height="9" rx="1" class="comp-orange" />
+          <rect x="260" y="480" width="14" height="9" rx="1" class="comp-orange" />
+        </g>
+      </svg>
     </div>
 
-    <!-- 3. Magnifier Loupe Bezel with Glass Reflection & Cardinal Ticks -->
-    <div id="pcb-magnifier-bezel" class="pcb-magnifier-bezel">
-      <span class="tick-top"></span>
-      <span class="tick-bottom"></span>
-      <span class="tick-left"></span>
-      <span class="tick-right"></span>
-    </div>
-
-    <!-- 4. ACTUAL WEBSITE FOREGROUND CONTENT (Preserved exact design) -->
+    <!-- 3. ACTUAL WEBSITE FOREGROUND CONTENT -->
     <div class="relative z-20">
+
+      <!-- SECTION 1: PRODUCT CATALOG TEASER (3 SAMPLE CARDS) -->
       <section id="products" class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 pt-12 sm:pt-16 pb-10 sm:pb-12 lg:pb-14">
         
         <!-- Section Header -->
@@ -306,14 +454,34 @@
           </a>
         </div>
 
-        <!-- Sample Cards (Matching index.html exactly) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 2xl:gap-10">
+        <!-- 3 Sample Cards (Glass PCB Reveal on hover) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 2xl:gap-10">
           
-          <!-- Card 1 -->
-          <div class="tilt-card relative bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red transition-all duration-300 flex flex-col group overflow-hidden">
+          <!-- Card 1: Avionics Bus -->
+          <div class="glass-pcb-card flex flex-col group">
             <div class="card-sheen"></div>
+
+            <!-- Embedded Underlay PCB artwork (Revealed on card hover through frosted glass) -->
+            <div class="card-pcb-underlay">
+              <svg class="w-full h-full" viewBox="0 0 400 500" preserveAspectRatio="none">
+                <!-- Avionics bus traces -->
+                <path d="M 20 40 h 120 l 40 40 v 140 l 30 30 h 140" stroke="#0284c7" stroke-width="1.4" fill="none" />
+                <path d="M 20 55 h 115 l 40 40 v 135 l 30 30 h 145" stroke="#38bdf8" stroke-width="1.1" fill="none" />
+                <path d="M 20 70 h 110 l 40 40 v 130 l 30 30 h 150" stroke="#0284c7" stroke-width="1.4" fill="none" />
+                <path d="M 40 180 l 60 60 h 120 l 40 -40 v -80" stroke="#eb2128" stroke-width="1.3" fill="none" />
+                <!-- Orange components -->
+                <rect x="180" y="160" width="18" height="12" rx="1.5" fill="#f97316" stroke="#ea580c" stroke-width="0.7" />
+                <rect x="205" y="160" width="18" height="12" rx="1.5" fill="#f97316" stroke="#ea580c" stroke-width="0.7" />
+                <rect x="280" y="320" width="22" height="14" rx="2" fill="#f97316" stroke="#ea580c" stroke-width="0.7" />
+                <!-- Vias -->
+                <circle cx="180" cy="120" r="3.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.3" />
+                <circle cx="210" cy="220" r="3.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.3" />
+                <circle cx="100" cy="240" r="3.5" fill="#ffffff" stroke="#eb2128" stroke-width="1.3" />
+              </svg>
+            </div>
             
-            <div class="h-52 md:h-56 lg:h-64 relative border-b border-slate-100 overflow-hidden bg-slate-900">
+            <!-- Card Image Header -->
+            <div class="h-52 md:h-56 lg:h-64 relative border-b border-slate-100 overflow-hidden bg-slate-900 z-10">
               <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
                 style="background-image: url('assets/cards/card1-background1.png');">
               </div>
@@ -325,7 +493,8 @@
               </div>
             </div>
 
-            <div class="p-5 sm:p-6 flex flex-col flex-1">
+            <!-- Card Content Body -->
+            <div class="p-5 sm:p-6 flex flex-col flex-1 relative z-10">
               <div class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">ARINC-429 Series</div>
               <h3 class="font-heading text-xl lg:text-2xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
                 AT-PMC-429 Avionics Card
@@ -334,23 +503,43 @@
                 PCI bus compatible ARINC-429 controller supporting up to 12 configurable channels per PMC card with high-density FIFO buffering.
               </p>
               <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] font-mono">
-                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">12 Channels</span>
-                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">IEEE P1386.1</span>
+                <span class="bg-slate-100/90 text-slate-700 px-2 py-0.5 border border-slate-200">12 Channels</span>
+                <span class="bg-slate-100/90 text-slate-700 px-2 py-0.5 border border-slate-200">IEEE P1386.1</span>
               </div>
               <div class="mt-auto pt-5 flex items-center justify-between border-t border-slate-200 text-xs">
                 <span class="text-slate-500 font-mono font-medium">Form: PMC Card</span>
-                <a href="#" class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5">
+                <a href="#" class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5 group/link">
                   <span>Datasheet (PDF)</span>
-                  <span>→</span>
+                  <span class="group-hover/link:translate-x-0.5 transition-transform">→</span>
                 </a>
               </div>
             </div>
           </div>
 
-          <!-- Card 2 -->
-          <div class="tilt-card relative bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red transition-all duration-300 flex flex-col group overflow-hidden">
+          <!-- Card 2: Single Board Computer -->
+          <div class="glass-pcb-card flex flex-col group">
             <div class="card-sheen"></div>
-            <div class="h-52 md:h-56 lg:h-64 relative border-b border-slate-100 overflow-hidden bg-slate-900">
+
+            <!-- Embedded Underlay PCB artwork -->
+            <div class="card-pcb-underlay">
+              <svg class="w-full h-full" viewBox="0 0 400 500" preserveAspectRatio="none">
+                <!-- Processor breakout traces -->
+                <path d="M 80 50 v 120 l 50 50 h 160 l 30 30 v 120" stroke="#0284c7" stroke-width="1.4" fill="none" />
+                <path d="M 95 50 v 115 l 50 50 h 155 l 30 30 v 125" stroke="#38bdf8" stroke-width="1.1" fill="none" />
+                <path d="M 110 50 v 110 l 50 50 h 150 l 30 30 v 130" stroke="#0284c7" stroke-width="1.4" fill="none" />
+                <path d="M 320 180 l -50 50 h -120 l -40 40 v 90" stroke="#eb2128" stroke-width="1.3" fill="none" />
+                <!-- Orange memory footprints -->
+                <rect x="140" y="240" width="26" height="16" rx="2" fill="#f97316" stroke="#ea580c" stroke-width="0.7" />
+                <rect x="175" y="240" width="26" height="16" rx="2" fill="#f97316" stroke="#ea580c" stroke-width="0.7" />
+                <rect x="210" y="240" width="26" height="16" rx="2" fill="#f97316" stroke="#ea580c" stroke-width="0.7" />
+                <!-- Vias -->
+                <circle cx="130" cy="165" r="3.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.3" />
+                <circle cx="295" cy="245" r="3.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.3" />
+                <circle cx="110" cy="320" r="3.5" fill="#ffffff" stroke="#eb2128" stroke-width="1.3" />
+              </svg>
+            </div>
+
+            <div class="h-52 md:h-56 lg:h-64 relative border-b border-slate-100 overflow-hidden bg-slate-900 z-10">
               <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
                 style="background-image: url('assets/cards/card2-background.png');">
               </div>
@@ -362,7 +551,7 @@
               </div>
             </div>
 
-            <div class="p-5 sm:p-6 flex flex-col flex-1">
+            <div class="p-5 sm:p-6 flex flex-col flex-1 relative z-10">
               <div class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">VMEbus Series</div>
               <h3 class="font-heading text-xl lg:text-2xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
                 AT-VME-SBC Core i7
@@ -371,23 +560,42 @@
                 High-performance 6U VME single board computer powered by multi-core Intel Core i7 with ruggedized thermal conduction management.
               </p>
               <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] font-mono">
-                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">Intel Core i7</span>
-                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">VxWorks / Linux</span>
+                <span class="bg-slate-100/90 text-slate-700 px-2 py-0.5 border border-slate-200">Intel Core i7</span>
+                <span class="bg-slate-100/90 text-slate-700 px-2 py-0.5 border border-slate-200">VxWorks / Linux</span>
               </div>
               <div class="mt-auto pt-5 flex items-center justify-between border-t border-slate-200 text-xs">
                 <span class="text-slate-500 font-mono font-medium">Form: 6U VME</span>
-                <a href="#" class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5">
+                <a href="#" class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5 group/link">
                   <span>Datasheet (PDF)</span>
-                  <span>→</span>
+                  <span class="group-hover/link:translate-x-0.5 transition-transform">→</span>
                 </a>
               </div>
             </div>
           </div>
 
-          <!-- Card 3 -->
-          <div class="tilt-card relative bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red transition-all duration-300 flex flex-col group overflow-hidden">
+          <!-- Card 3: RF & Microwave -->
+          <div class="glass-pcb-card flex flex-col group md:col-span-2 lg:col-span-1 md:max-w-md md:w-full md:mx-auto lg:max-w-none lg:w-auto">
             <div class="card-sheen"></div>
-            <div class="h-52 md:h-56 lg:h-64 relative border-b border-slate-100 overflow-hidden bg-slate-900">
+
+            <!-- Embedded Underlay PCB artwork -->
+            <div class="card-pcb-underlay">
+              <svg class="w-full h-full" viewBox="0 0 400 500" preserveAspectRatio="none">
+                <!-- RF Cavity Filter / Strip line traces -->
+                <path d="M 50 120 h 90 l 45 45 v 110 l 45 45 h 110" stroke="#0284c7" stroke-width="1.6" fill="none" />
+                <path d="M 50 135 h 85 l 45 45 v 105 l 45 45 h 115" stroke="#38bdf8" stroke-width="1.2" fill="none" />
+                <path d="M 280 80 v 80 l -50 50 h -100 l -40 40 v 110" stroke="#eb2128" stroke-width="1.4" fill="none" />
+                <!-- Orange filter tuning pads -->
+                <rect x="180" y="210" width="20" height="14" rx="2" fill="#f97316" stroke="#ea580c" stroke-width="0.7" />
+                <rect x="210" y="210" width="20" height="14" rx="2" fill="#f97316" stroke="#ea580c" stroke-width="0.7" />
+                <rect x="80" y="280" width="16" height="10" rx="1.5" fill="#f97316" stroke="#ea580c" stroke-width="0.7" />
+                <!-- Vias -->
+                <circle cx="140" cy="165" r="3.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.3" />
+                <circle cx="275" cy="265" r="3.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.3" />
+                <circle cx="130" cy="210" r="3.5" fill="#ffffff" stroke="#eb2128" stroke-width="1.3" />
+              </svg>
+            </div>
+
+            <div class="h-52 md:h-56 lg:h-64 relative border-b border-slate-100 overflow-hidden bg-slate-900 z-10">
               <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
                 style="background-image: url('assets/cards/card3-background.png');">
               </div>
@@ -399,55 +607,158 @@
               </div>
             </div>
 
-            <div class="p-5 sm:p-6 flex flex-col flex-1">
+            <div class="p-5 sm:p-6 flex flex-col flex-1 relative z-10">
               <div class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Cavity Filters</div>
               <h3 class="font-heading text-xl lg:text-2xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
                 Bandpass Cavity Filters
               </h3>
               <p class="text-xs sm:text-sm text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
-                Custom cavity & combline filters engineered for high selectivity, steep rejection skirts, and minimal insertion loss across extreme bands.
+                Custom cavity & combline filters engineered for high selectivity, steep rejection skirts, and minimal insertion loss across extreme airborne bands.
               </p>
               <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] font-mono">
-                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">500 MHz - 18 GHz</span>
-                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">Mil-Qualified</span>
+                <span class="bg-slate-100/90 text-slate-700 px-2 py-0.5 border border-slate-200">500 MHz - 18 GHz</span>
+                <span class="bg-slate-100/90 text-slate-700 px-2 py-0.5 border border-slate-200">Mil-Qualified</span>
               </div>
               <div class="mt-auto pt-5 flex items-center justify-between border-t border-slate-200 text-xs">
                 <span class="text-slate-500 font-mono font-medium">Low Loss Filter</span>
-                <a href="#" class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5">
+                <a href="#" class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5 group/link">
                   <span>Datasheet (PDF)</span>
-                  <span>→</span>
+                  <span class="group-hover/link:translate-x-0.5 transition-transform">→</span>
                 </a>
               </div>
             </div>
           </div>
 
         </div>
-
-        <!-- Verification Notes Box -->
-        <div class="mt-12 bg-white/90 backdrop-blur-md border border-slate-300 p-6 shadow-sm">
-          <div class="flex items-center gap-2 text-brand-red font-heading uppercase text-sm font-semibold tracking-wider mb-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Optical Magnifying Loupe Verification Details
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600 font-body mt-3">
-            <div>
-              <span class="font-semibold font-mono text-slate-900 block mb-1">1. Optical Magnification Scale</span>
-              Circuit lines and component pads scale up by <code class="bg-slate-100 px-1 py-0.5 border border-slate-200 text-brand-slate font-mono">1.35x</code> directly centered on the cursor, simulating an inspection loupe.
-            </div>
-            <div>
-              <span class="font-semibold font-mono text-slate-900 block mb-1">2. Precision Loupe Bezel</span>
-              Framed by a refined cyan lens rim with an internal curved glass specular reflection and red cardinal optical ticks.
-            </div>
-            <div>
-              <span class="font-semibold font-mono text-slate-900 block mb-1">3. Non-Intrusive Pass-through</span>
-              All overlay layers use <code class="bg-slate-100 px-1 py-0.5 border border-slate-200 text-brand-slate font-mono">pointer-events: none</code>. Cards, buttons, and links remain 100% clickable.
-            </div>
-          </div>
-        </div>
-
       </section>
+
+      <!-- SECTION 2: SPECIFICATIONS TABLE — TECHNICAL GLASS EFFECT -->
+      <section class="border-t border-slate-200/80 pt-10 sm:pt-12 lg:pt-14 pb-16 sm:pb-20">
+        <div class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8">
+          
+          <div class="mb-6 sm:mb-8 2xl:mb-10 text-left">
+            <div class="text-brand-red font-heading uppercase text-xs sm:text-sm 2xl:text-base font-semibold tracking-widest">
+              Technical Precision
+            </div>
+            <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl 2xl:text-5xl font-bold text-brand-slate uppercase tracking-tight mt-1">
+              Specifications Grid Treatment
+            </h2>
+          </div>
+
+          <!-- Frosted Technical Glass Container -->
+          <div class="table-glass-container 2xl:rounded-lg">
+
+            <!-- UNDERLAY PCB TRACES: Red traces on left, blue traces on right (matching mockup) -->
+            <div class="table-pcb-underlay">
+              <svg class="w-full h-full" viewBox="0 0 1200 400" preserveAspectRatio="none">
+                <!-- LEFT SIDE: AdTEC Red 45-degree angle traces -->
+                <path d="M -20 180 l 120 120 h 180 l 40 -40 v -80" stroke="#eb2128" stroke-width="1.8" fill="none" opacity="0.85" />
+                <path d="M -20 205 l 115 115 h 175 l 40 -40 v -75" stroke="#eb2128" stroke-width="1.3" fill="none" opacity="0.75" />
+                <path d="M -20 230 l 110 110 h 170 l 40 -40 v -70" stroke="#eb2128" stroke-width="1.3" fill="none" opacity="0.65" />
+                <path d="M 60 120 l 80 80 h 140 l 30 -30" stroke="#eb2128" stroke-width="1.4" fill="none" opacity="0.75" />
+
+                <!-- Red vias on left -->
+                <circle cx="100" cy="300" r="4.5" fill="#ffffff" stroke="#eb2128" stroke-width="1.5" />
+                <circle cx="280" cy="300" r="4.5" fill="#ffffff" stroke="#eb2128" stroke-width="1.5" />
+                <circle cx="320" cy="260" r="4.5" fill="#ffffff" stroke="#eb2128" stroke-width="1.5" />
+
+                <!-- RIGHT SIDE: Muted Blue bus traces emerging to edge -->
+                <path d="M 1220 160 l -140 140 h -220 l -40 -40 v -60" stroke="#0284c7" stroke-width="1.8" fill="none" opacity="0.85" />
+                <path d="M 1220 185 l -135 135 h -215 l -40 -40 v -55" stroke="#2563eb" stroke-width="1.3" fill="none" opacity="0.75" />
+                <path d="M 1220 210 l -130 130 h -210 l -40 -40 v -50" stroke="#38bdf8" stroke-width="1.3" fill="none" opacity="0.65" />
+                <path d="M 1040 120 l -60 60 h -160" stroke="#0284c7" stroke-width="1.4" fill="none" opacity="0.75" />
+
+                <!-- Blue vias on right -->
+                <circle cx="1080" cy="300" r="4.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" />
+                <circle cx="860" cy="300" r="4.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" />
+                <circle cx="820" cy="260" r="4.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" />
+
+                <!-- Orange SMT pads near table center/right -->
+                <rect x="740" y="240" width="18" height="12" rx="1.5" fill="#f97316" stroke="#ea580c" stroke-width="0.8" opacity="0.9" />
+                <rect x="765" y="240" width="18" height="12" rx="1.5" fill="#f97316" stroke="#ea580c" stroke-width="0.8" opacity="0.9" />
+                <rect x="420" y="280" width="16" height="10" rx="1.5" fill="#f97316" stroke="#ea580c" stroke-width="0.8" opacity="0.8" />
+              </svg>
+            </div>
+
+            <div class="overflow-x-auto relative z-10">
+              <table class="w-full text-left text-xs 2xl:text-sm min-w-[620px]">
+                <thead>
+                  <tr class="bg-white/80 backdrop-blur-md border-b-2 border-slate-300 font-heading text-sm 2xl:text-base font-bold text-brand-slate uppercase tracking-wider">
+                    <th class="py-4 2xl:py-5 pl-8 sm:pl-16 pr-4 w-[38%]">Feature / Parameter</th>
+                    <th class="py-4 2xl:py-5 px-6 2xl:px-8 w-[31%]">Commercial Grade</th>
+                    <th class="py-4 2xl:py-5 px-6 2xl:px-8 w-[31%] text-brand-red">Ruggedized (Military)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-300/60 font-mono">
+                  
+                  <tr class="spec-table-row">
+                    <td class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 pr-4 font-body font-semibold text-slate-900">
+                      Operating Temperature
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">
+                      0°C to +60°C
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-brand-red font-bold">
+                      -40°C to +85°C
+                    </td>
+                  </tr>
+
+                  <tr class="spec-table-row">
+                    <td class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 pr-4 font-body font-semibold text-slate-900">
+                      Cooling Method
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">
+                      Air-Cooled (Forced Air)
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-900 font-bold">
+                      Conduction-Cooled (VITA 20)
+                    </td>
+                  </tr>
+
+                  <tr class="spec-table-row">
+                    <td class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 pr-4 font-body font-semibold text-slate-900">
+                      Form Factor
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">
+                      3U CompactPCI (IEEE 1101.2)
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">
+                      3U CompactPCI Rugged Wedge
+                    </td>
+                  </tr>
+
+                  <tr class="spec-table-row">
+                    <td class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 pr-4 font-body font-semibold text-slate-900">
+                      Operating System Support
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">
+                      Linux, Windows XP/7
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-900 font-bold">
+                      VxWorks 6.x BSP, RTLinux
+                    </td>
+                  </tr>
+
+                  <tr class="spec-table-row">
+                    <td class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 pr-4 font-body font-semibold text-slate-900">
+                      Warranty
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">
+                      1 Year Limited
+                    </td>
+                    <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">
+                      Extended Options Available
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
     </div>
   </main>
 
@@ -456,75 +767,46 @@
     <div class="flex items-center justify-between pb-2 border-b border-slate-700/80 mb-3">
       <span class="font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
         <span class="w-2 h-2 rounded-full bg-brand-red"></span>
-        Magnifier Loupe Tuner
+        PCB Interaction Tuner
       </span>
       <button id="toggle-dock-btn" class="text-slate-400 hover:text-white text-[11px]">_</button>
     </div>
 
     <div id="dock-controls" class="space-y-3">
-      <!-- Magnification Zoom Slider -->
+      <!-- Spotlight Radius Slider -->
       <div>
         <div class="flex justify-between mb-1">
-          <label for="slider-zoom" class="text-[11px] text-slate-300 font-semibold text-cyan-300">Magnification Scale:</label>
-          <span id="zoom-val" class="text-cyan-400 font-bold">1.35x</span>
+          <label for="slider-radius" class="text-[11px] text-slate-300 font-semibold text-cyan-300">Spotlight Radius:</label>
+          <span id="radius-val" class="text-cyan-400 font-bold">300px</span>
         </div>
-        <input type="range" id="slider-zoom" min="1.0" max="2.2" step="0.05" value="1.35" class="w-full accent-cyan-400 cursor-pointer">
+        <input type="range" id="slider-radius" min="200" max="420" step="10" value="300" class="w-full accent-cyan-400 cursor-pointer">
       </div>
 
-      <!-- Reveal Radius Slider -->
+      <!-- Spotlight Dissolve Delay -->
       <div>
         <div class="flex justify-between mb-1">
-          <label for="slider-radius" class="text-[11px] text-slate-300">Loupe Radius:</label>
-          <span id="radius-val" class="text-cyan-400">160px</span>
+          <label for="slider-fade" class="text-[11px] text-slate-300">Fade Inactivity Delay:</label>
+          <span id="fade-val" class="text-cyan-400">400ms</span>
         </div>
-        <input type="range" id="slider-radius" min="90" max="280" value="160" class="w-full accent-cyan-400 cursor-pointer">
+        <input type="range" id="slider-fade" min="200" max="1500" step="50" value="400" class="w-full accent-cyan-400 cursor-pointer">
       </div>
 
-      <!-- Image Selector -->
-      <div>
-        <label for="select-image" class="text-[11px] text-slate-300 block mb-1">Base Image:</label>
-        <select id="select-image" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-1.5 rounded text-[11px] focus:outline-none">
-          <option value="pcb-interactive/base2.png" selected>base2.png (Red & Blue Lines)</option>
-          <option value="pcb-interactive/base.png">base.png (AdTEC CPCI-SBC Board)</option>
-          <option value="pcb-interactive/reference2.png">reference2.png (CAD Schematic)</option>
-        </select>
-      </div>
-
-      <!-- Blend Mode Selector -->
-      <div>
-        <label for="select-blend" class="text-[11px] text-slate-300 block mb-1">Blend Mode:</label>
-        <select id="select-blend" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-1.5 rounded text-[11px] focus:outline-none">
-          <option value="multiply" selected>Multiply (Traces on CAD Grid)</option>
-          <option value="normal">Normal (Opaque Base Image)</option>
-          <option value="darken">Darken</option>
-        </select>
-      </div>
-
-      <!-- Fade Inertia Slider -->
-      <div>
-        <div class="flex justify-between mb-1">
-          <label for="slider-fade" class="text-[11px] text-slate-300">Dissolve Delay:</label>
-          <span id="fade-val" class="text-cyan-400">700ms</span>
-        </div>
-        <input type="range" id="slider-fade" min="200" max="2000" step="50" value="700" class="w-full accent-cyan-400 cursor-pointer">
-      </div>
-
-      <!-- Loupe Bezel Toggle -->
+      <!-- Ambient Aura Toggle -->
       <div class="flex items-center justify-between">
-        <label for="chk-bezel" class="text-[11px] text-slate-300 cursor-pointer">Glass Bezel & Reticle</label>
-        <input type="checkbox" id="chk-bezel" checked class="accent-cyan-400 cursor-pointer">
+        <label for="chk-aura" class="text-[11px] text-slate-300 cursor-pointer">Ambient Soft Blue Surface</label>
+        <input type="checkbox" id="chk-aura" checked class="accent-cyan-400 cursor-pointer">
       </div>
 
-      <!-- Ambient Glow Toggle -->
+      <!-- Card Glass Effect Always-On (For Testing) -->
       <div class="flex items-center justify-between">
-        <label for="chk-glow" class="text-[11px] text-slate-300 cursor-pointer">Ambient Aura Glow</label>
-        <input type="checkbox" id="chk-glow" checked class="accent-cyan-400 cursor-pointer">
+        <label for="chk-force-glass" class="text-[11px] text-slate-300 cursor-pointer">Preview Glass Cards Unhovered</label>
+        <input type="checkbox" id="chk-force-glass" class="accent-cyan-400 cursor-pointer">
       </div>
 
       <!-- Peek Button -->
       <div class="pt-2 border-t border-slate-800">
         <button id="btn-peek" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white py-1 px-2 border border-slate-600 transition text-[11px]">
-          Inspect Full Image (Hold to Peek)
+          Inspect Full PCB Layer (Hold to Peek)
         </button>
       </div>
     </div>
@@ -543,26 +825,22 @@
       }
 
       const container = document.getElementById('main-content');
-      const maskLayer = document.getElementById('pcb-schematic-layer');
-      const baseImageEl = document.getElementById('pcb-base-image-el');
-      const auraLayer = document.getElementById('pcb-cursor-aura');
-      const bezelEl = document.getElementById('pcb-magnifier-bezel');
-      const topZoomBadge = document.getElementById('top-zoom-badge');
-      if (!container || !maskLayer || !baseImageEl) return;
+      const spotlightLayer = document.getElementById('pcb-spotlight-layer');
+      const auraLayer = document.getElementById('pcb-spotlight-aura');
+      if (!container || !spotlightLayer) return;
 
-      // Configuration state
+      // Configuration state matching user recommendations
       let config = {
-        radius: 160,
-        zoom: 1.35,      // Optical magnification scale
-        fadeDelay: 700,  // Inactivity fade delay
-        lerpFactor: 0.16 // Smooth follow inertia
+        radius: 300,     // 250-350px recommendation (default 300px)
+        fadeDelay: 400,  // Smooth fade, approx 400ms
+        lerpFactor: 0.14 // Smooth follow inertia
       };
 
       // Coordinates & Physics tracking
-      let mouseX = -500;
-      let mouseY = -500;
-      let currentX = -500;
-      let currentY = -500;
+      let mouseX = -600;
+      let mouseY = -600;
+      let currentX = -600;
+      let currentY = -600;
       let targetOpacity = 0;
       let currentOpacity = 0;
       let isMouseInside = false;
@@ -571,11 +849,10 @@
 
       // Apply coordinates to CSS variables
       function applyCoordinates() {
-        container.style.setProperty('--pcb-x', `${currentX.toFixed(1)}px`);
-        container.style.setProperty('--pcb-y', `${currentY.toFixed(1)}px`);
-        container.style.setProperty('--pcb-radius', `${config.radius}px`);
-        container.style.setProperty('--pcb-zoom', config.zoom.toFixed(2));
-        container.style.setProperty('--pcb-opacity', currentOpacity.toFixed(3));
+        container.style.setProperty('--mouse-x', `${currentX.toFixed(1)}px`);
+        container.style.setProperty('--mouse-y', `${currentY.toFixed(1)}px`);
+        container.style.setProperty('--spotlight-radius', `${config.radius}px`);
+        container.style.setProperty('--spotlight-opacity', currentOpacity.toFixed(3));
       }
 
       // Physics animation loop using requestAnimationFrame
@@ -585,7 +862,7 @@
         currentY += (mouseY - currentY) * config.lerpFactor;
 
         // Smoothly interpolate opacity
-        currentOpacity += (targetOpacity - currentOpacity) * 0.08;
+        currentOpacity += (targetOpacity - currentOpacity) * 0.1;
 
         applyCoordinates();
 
@@ -623,10 +900,9 @@
         targetOpacity = 1;
         requestAnimation();
 
-        // Reset inactivity fade timer
+        // Reset inactivity fade timer (Smooth fade approx 400ms)
         if (idleTimeout) clearTimeout(idleTimeout);
         idleTimeout = setTimeout(() => {
-          // Gradually fade out when cursor becomes stationary
           targetOpacity = 0;
           requestAnimation();
         }, config.fadeDelay);
@@ -641,28 +917,16 @@
       });
 
       // 2. Interactive Parameter Tuner Controls
-      const sliderZoom = document.getElementById('slider-zoom');
-      const zoomVal = document.getElementById('zoom-val');
       const sliderRadius = document.getElementById('slider-radius');
       const radiusVal = document.getElementById('radius-val');
       const sliderFade = document.getElementById('slider-fade');
       const fadeVal = document.getElementById('fade-val');
-      const chkBezel = document.getElementById('chk-bezel');
-      const chkGlow = document.getElementById('chk-glow');
-      const selectImage = document.getElementById('select-image');
-      const selectBlend = document.getElementById('select-blend');
+      const chkAura = document.getElementById('chk-aura');
+      const chkForceGlass = document.getElementById('chk-force-glass');
       const btnPeek = document.getElementById('btn-peek');
       const toggleDockBtn = document.getElementById('toggle-dock-btn');
       const dockControls = document.getElementById('dock-controls');
-
-      if (sliderZoom && zoomVal) {
-        sliderZoom.addEventListener('input', (e) => {
-          config.zoom = parseFloat(e.target.value);
-          zoomVal.textContent = `${config.zoom.toFixed(2)}x`;
-          if (topZoomBadge) topZoomBadge.textContent = `Zoom: ${config.zoom.toFixed(2)}x`;
-          applyCoordinates();
-        });
-      }
+      const cards = document.querySelectorAll('.glass-pcb-card');
 
       if (sliderRadius && radiusVal) {
         sliderRadius.addEventListener('input', (e) => {
@@ -679,40 +943,42 @@
         });
       }
 
-      if (chkBezel && bezelEl) {
-        chkBezel.addEventListener('change', (e) => {
-          bezelEl.style.display = e.target.checked ? 'block' : 'none';
-        });
-      }
-
-      if (selectImage && baseImageEl) {
-        selectImage.addEventListener('change', (e) => {
-          baseImageEl.style.backgroundImage = `url('${e.target.value}')`;
-        });
-      }
-
-      if (selectBlend && baseImageEl) {
-        selectBlend.addEventListener('change', (e) => {
-          baseImageEl.style.mixBlendMode = e.target.value;
-        });
-      }
-
-      if (chkGlow && auraLayer) {
-        chkGlow.addEventListener('change', (e) => {
+      if (chkAura && auraLayer) {
+        chkAura.addEventListener('change', (e) => {
           auraLayer.style.display = e.target.checked ? 'block' : 'none';
         });
       }
 
-      // Hold-to-peek full image functionality
-      if (btnPeek && maskLayer) {
+      // Preview glass cards unhovered toggle
+      if (chkForceGlass && cards.length > 0) {
+        chkForceGlass.addEventListener('change', (e) => {
+          cards.forEach((card) => {
+            const underlay = card.querySelector('.card-pcb-underlay');
+            if (e.target.checked) {
+              card.style.background = 'rgba(255, 255, 255, 0.82)';
+              card.style.backdropFilter = 'blur(12px)';
+              card.style.borderColor = 'rgba(235, 33, 40, 0.45)';
+              if (underlay) underlay.style.opacity = '0.65';
+            } else {
+              card.style.background = '';
+              card.style.backdropFilter = '';
+              card.style.borderColor = '';
+              if (underlay) underlay.style.opacity = '';
+            }
+          });
+        });
+      }
+
+      // Hold-to-peek full PCB artwork
+      if (btnPeek && spotlightLayer) {
         const startPeek = () => {
-          maskLayer.style.webkitMaskImage = 'none';
-          maskLayer.style.maskImage = 'none';
-          maskLayer.style.opacity = '1';
+          spotlightLayer.style.webkitMaskImage = 'none';
+          spotlightLayer.style.maskImage = 'none';
+          spotlightLayer.style.opacity = '1';
         };
         const endPeek = () => {
-          maskLayer.style.webkitMaskImage = '';
-          maskLayer.style.maskImage = '';
+          spotlightLayer.style.webkitMaskImage = '';
+          spotlightLayer.style.maskImage = '';
           applyCoordinates();
         };
 
@@ -729,25 +995,16 @@
         });
       }
 
-      // 3. 3D Tilt Card & Sheen Controller (Matching index.html)
-      const cards = document.querySelectorAll('.tilt-card');
+      // 3. Dynamic Sheen Controller on cards
       cards.forEach((card) => {
         const sheen = card.querySelector('.card-sheen');
         card.addEventListener('mousemove', (e) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
-          const xPercent = (x / rect.width) - 0.5;
-          const yPercent = (y / rect.height) - 0.5;
-          const rotateX = (-yPercent * 10).toFixed(2);
-          const rotateY = (xPercent * 10).toFixed(2);
-          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.025, 1.025, 1.025)`;
           if (sheen) {
-            sheen.style.background = `radial-gradient(circle 340px at ${x}px ${y}px, rgba(235, 33, 40, 0.22), rgba(255, 255, 255, 0.12) 35%, transparent 75%)`;
+            sheen.style.background = `radial-gradient(circle 320px at ${x}px ${y}px, rgba(235, 33, 40, 0.16), rgba(255, 255, 255, 0.12) 35%, transparent 75%)`;
           }
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
         });
       });
 
