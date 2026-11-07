@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdTEC | Interactive PCB Magnifying Loupe Discovery</title>
+  <meta name="description"
+    content="Interactive visual effect featuring an optical magnifying loupe revealing and magnifying PCB circuit lines using base2.png over the CAD engineering grid.">
+
+  <!-- Favicon Links -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png?v=5">
+  <link rel="shortcut icon" href="assets/favicon.ico?v=5">
+
+  <!-- Google Fonts: Oswald, DM Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          screens: {
+            '2xl': '1536px',
+            '3xl': '1920px',
+            '4k': '2560px',
+          },
+          maxWidth: {
+            '8xl': '1440px',
+            '9xl': '1600px',
+            '10xl': '1780px',
+          },
+          colors: {
+            brand: {
+              red: '#eb2128',
+              'red-hover': '#c8141b',
+              navy: '#0b192c',
+              slate: '#0f172a',
+            }
+          },
+          fontFamily: {
+            heading: ['Oswald', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Container isolation */
+    .pcb-discovery-wrapper {
+      position: relative;
+      isolation: isolate;
+    }
+
+    /* Ambient cursor electric-blue glow aura */
+    .pcb-cursor-aura {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9;
+      opacity: var(--pcb-opacity, 0);
+      transition: opacity 0.35s ease;
+      background: radial-gradient(
+        circle calc(var(--pcb-radius, 160px) + 24px) at var(--pcb-x, -500px) var(--pcb-y, -500px),
+        rgba(14, 165, 233, 0.14) 0%,
+        rgba(14, 165, 233, 0.04) 55%,
+        transparent 75%
+      );
+    }
+
+    /* Hardware-accelerated radial reveal mask */
+    .pcb-schematic-mask-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      opacity: var(--pcb-opacity, 0);
+      transition: opacity 0.35s ease;
+      will-change: mask-image, -webkit-mask-image, opacity;
+      -webkit-mask-image: radial-gradient(
+        circle var(--pcb-radius, 160px) at var(--pcb-x, -500px) var(--pcb-y, -500px),
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.96) 50%,
+        rgba(0, 0, 0, 0.5) 78%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      mask-image: radial-gradient(
+        circle var(--pcb-radius, 160px) at var(--pcb-x, -500px) var(--pcb-y, -500px),
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0.96) 50%,
+        rgba(0, 0, 0, 0.5) 78%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    }
+
+    /* Optical Magnifying Lens layer: scales base2.png centered precisely at the cursor */
+    .pcb-base-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('pcb-interactive/base2.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      mix-blend-mode: multiply; /* Blends traces directly onto CAD grid */
+      transform-origin: var(--pcb-x, 50%) var(--pcb-y, 50%);
+      transform: scale(var(--pcb-zoom, 1.35));
+      will-change: transform, transform-origin;
+    }
+
+    /* Magnifier Loupe Glass Bezel & Optical Reticle */
+    .pcb-magnifier-bezel {
+      position: absolute;
+      pointer-events: none;
+      z-index: 12;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(var(--pcb-radius, 160px) * 2);
+      height: calc(var(--pcb-radius, 160px) * 2);
+      top: var(--pcb-y, -500px);
+      left: var(--pcb-x, -500px);
+      border: 1.5px solid rgba(14, 165, 233, 0.55);
+      box-shadow: 
+        0 0 20px rgba(14, 165, 233, 0.22),
+        inset 0 0 18px rgba(14, 165, 233, 0.12),
+        0 8px 24px rgba(11, 25, 44, 0.2);
+      opacity: var(--pcb-opacity, 0);
+      transition: opacity 0.35s ease;
+      box-sizing: border-box;
+    }
+
+    /* Loupe Curved Glass Specular Highlight Reflection */
+    .pcb-magnifier-bezel::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.05) 38%,
+        transparent 65%
+      );
+      pointer-events: none;
+    }
+
+    /* Cardinal Optical Alignment Ticks (AdTEC Red) */
+    .pcb-magnifier-bezel .tick-top {
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1.5px;
+      height: 9px;
+      background: #eb2128;
+    }
+    .pcb-magnifier-bezel .tick-bottom {
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1.5px;
+      height: 9px;
+      background: #eb2128;
+    }
+    .pcb-magnifier-bezel .tick-left {
+      position: absolute;
+      top: 50%;
+      left: -5px;
+      transform: translateY(-50%);
+      height: 1.5px;
+      width: 9px;
+      background: #eb2128;
+    }
+    .pcb-magnifier-bezel .tick-right {
+      position: absolute;
+      top: 50%;
+      right: -5px;
+      transform: translateY(-50%);
+      height: 1.5px;
+      width: 9px;
+      background: #eb2128;
+    }
+
+    /* Tilt Card styling matching index.html */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.18s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+      will-change: transform;
+    }
+    .card-sheen {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+      z-index: 25;
+    }
+    .tilt-card:hover .card-sheen {
+      opacity: 1;
+    }
+
+    /* Accessibility: Disable on touch devices and reduced motion */
+    @media (hover: none) or (pointer: coarse) {
+      .pcb-schematic-mask-layer,
+      .pcb-cursor-aura,
+      .pcb-magnifier-bezel {
+        display: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pcb-schematic-mask-layer,
+      .pcb-cursor-aura,
+      .pcb-magnifier-bezel {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 font-body text-slate-700 antialiased selection:bg-red-500 selection:text-white">
+
+  <!-- Prototype Top Navigation Banner (Preserved exact design) -->
+  <header class="bg-brand-navy sticky top-0 z-50 shadow-md border-b-2 border-brand-red">
+    <div
+      class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 h-16 sm:h-20 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="assets/logo.png?v=3" alt="AdTEC Electronic Instruments"
+          class="h-10 sm:h-12 w-auto object-contain">
+        <span class="hidden sm:inline-block px-2.5 py-0.5 text-[11px] font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/10 border border-brand-red/40 rounded">
+          PCB Magnifying Loupe POC (base2.png)
+        </span>
+      </a>
+
+      <!-- Quick Nav -->
+      <div class="flex items-center gap-4 text-xs font-mono">
+        <a href="index.html" class="text-slate-300 hover:text-white transition flex items-center gap-1.5 bg-slate-800/80 px-3 py-1.5 border border-slate-700">
+          <span>← Back to Live Website</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Proof of Concept Status Notification -->
+  <div class="bg-brand-navy/95 border-b border-cyan-900/60 text-slate-300 text-xs py-2.5 px-4 sm:px-8 flex flex-wrap items-center justify-between gap-3 shadow-inner">
+    <div class="flex items-center gap-2 font-mono">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+      <span class="text-cyan-300 font-semibold uppercase">Optical Magnifying Loupe Active:</span>
+      <span class="text-slate-200">Move your mouse across the CAD grid. The PCB lines are revealed and magnified under the optical inspection lens.</span>
+    </div>
+    <div class="flex items-center gap-3 font-mono text-[11px]">
+      <span class="text-emerald-400 font-semibold" id="top-zoom-badge">Zoom: 1.35x</span>
+      <span class="text-slate-600">|</span>
+      <span class="text-slate-400">Target: <code class="text-cyan-300">base2.png</code></span>
+    </div>
+  </div>
+
+  <!-- MAIN WRAPPER WITH CAD GRID BACKGROUND -->
+  <!-- Exact background implementation from index.html (assets/background2.png) -->
+  <main id="main-content" class="relative bg-slate-100 pcb-discovery-wrapper min-h-screen overflow-hidden"
+    style="background-image: url('assets/background2.png'); background-position: center top; background-repeat: repeat-y; background-size: min(100vw, 2448px) auto;">
+
+    <!-- 1. Ambient Blueprint Glow Aura under cursor -->
+    <div id="pcb-cursor-aura" class="pcb-cursor-aura"></div>
+
+    <!-- 2. Circular Radial Mask Layer revealing & magnifying base2.png -->
+    <div id="pcb-schematic-layer" class="pcb-schematic-mask-layer">
+      <div id="pcb-base-image-el" class="pcb-base-image"></div>
+    </div>
+
+    <!-- 3. Magnifier Loupe Bezel with Glass Reflection & Cardinal Ticks -->
+    <div id="pcb-magnifier-bezel" class="pcb-magnifier-bezel">
+      <span class="tick-top"></span>
+      <span class="tick-bottom"></span>
+      <span class="tick-left"></span>
+      <span class="tick-right"></span>
+    </div>
+
+    <!-- 4. ACTUAL WEBSITE FOREGROUND CONTENT (Preserved exact design) -->
+    <div class="relative z-20">
+      <section id="products" class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 pt-12 sm:pt-16 pb-10 sm:pb-12 lg:pb-14">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8">
+          <div>
+            <div class="text-brand-red font-heading tracking-widest text-xs sm:text-sm 2xl:text-base font-semibold uppercase">
+              Category Catalog
+            </div>
+            <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl 2xl:text-5xl font-bold text-brand-slate uppercase tracking-tight mt-1">
+              High-Reliability Product Solutions
+            </h2>
+          </div>
+          <a href="#" class="mt-3 md:mt-0 font-heading text-xs sm:text-sm 2xl:text-base font-medium tracking-wide text-brand-red hover:text-brand-red-hover flex items-center gap-1">
+            Browse all 20 categories →
+          </a>
+        </div>
+
+        <!-- Sample Cards (Matching index.html exactly) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 2xl:gap-10">
+          
+          <!-- Card 1 -->
+          <div class="tilt-card relative bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red transition-all duration-300 flex flex-col group overflow-hidden">
+            <div class="card-sheen"></div>
+            
+            <div class="h-52 md:h-56 lg:h-64 relative border-b border-slate-100 overflow-hidden bg-slate-900">
+              <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                style="background-image: url('assets/cards/card1-background1.png');">
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-transparent pointer-events-none"></div>
+              <div class="relative z-10 p-4 sm:p-5">
+                <span class="inline-block text-[11px] font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/95 backdrop-blur-sm border border-red-200 px-2.5 py-1 shadow-sm">
+                  Avionics Bus
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 flex flex-col flex-1">
+              <div class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">ARINC-429 Series</div>
+              <h3 class="font-heading text-xl lg:text-2xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
+                AT-PMC-429 Avionics Card
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
+                PCI bus compatible ARINC-429 controller supporting up to 12 configurable channels per PMC card with high-density FIFO buffering.
+              </p>
+              <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] font-mono">
+                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">12 Channels</span>
+                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">IEEE P1386.1</span>
+              </div>
+              <div class="mt-auto pt-5 flex items-center justify-between border-t border-slate-200 text-xs">
+                <span class="text-slate-500 font-mono font-medium">Form: PMC Card</span>
+                <a href="#" class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5">
+                  <span>Datasheet (PDF)</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="tilt-card relative bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red transition-all duration-300 flex flex-col group overflow-hidden">
+            <div class="card-sheen"></div>
+            <div class="h-52 md:h-56 lg:h-64 relative border-b border-slate-100 overflow-hidden bg-slate-900">
+              <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                style="background-image: url('assets/cards/card2-background.png');">
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-transparent pointer-events-none"></div>
+              <div class="relative z-10 p-4 sm:p-5">
+                <span class="inline-block text-[11px] font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/95 backdrop-blur-sm border border-red-200 px-2.5 py-1 shadow-sm">
+                  Single Board Computer
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 flex flex-col flex-1">
+              <div class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">VMEbus Series</div>
+              <h3 class="font-heading text-xl lg:text-2xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
+                AT-VME-SBC Core i7
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
+                High-performance 6U VME single board computer powered by multi-core Intel Core i7 with ruggedized thermal conduction management.
+              </p>
+              <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] font-mono">
+                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">Intel Core i7</span>
+                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">VxWorks / Linux</span>
+              </div>
+              <div class="mt-auto pt-5 flex items-center justify-between border-t border-slate-200 text-xs">
+                <span class="text-slate-500 font-mono font-medium">Form: 6U VME</span>
+                <a href="#" class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5">
+                  <span>Datasheet (PDF)</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="tilt-card relative bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red transition-all duration-300 flex flex-col group overflow-hidden">
+            <div class="card-sheen"></div>
+            <div class="h-52 md:h-56 lg:h-64 relative border-b border-slate-100 overflow-hidden bg-slate-900">
+              <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                style="background-image: url('assets/cards/card3-background.png');">
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-transparent pointer-events-none"></div>
+              <div class="relative z-10 p-4 sm:p-5">
+                <span class="inline-block text-[11px] font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/95 backdrop-blur-sm border border-red-200 px-2.5 py-1 shadow-sm">
+                  RF & Microwave
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 flex flex-col flex-1">
+              <div class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Cavity Filters</div>
+              <h3 class="font-heading text-xl lg:text-2xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
+                Bandpass Cavity Filters
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
+                Custom cavity & combline filters engineered for high selectivity, steep rejection skirts, and minimal insertion loss across extreme bands.
+              </p>
+              <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] font-mono">
+                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">500 MHz - 18 GHz</span>
+                <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">Mil-Qualified</span>
+              </div>
+              <div class="mt-auto pt-5 flex items-center justify-between border-t border-slate-200 text-xs">
+                <span class="text-slate-500 font-mono font-medium">Low Loss Filter</span>
+                <a href="#" class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5">
+                  <span>Datasheet (PDF)</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Verification Notes Box -->
+        <div class="mt-12 bg-white/90 backdrop-blur-md border border-slate-300 p-6 shadow-sm">
+          <div class="flex items-center gap-2 text-brand-red font-heading uppercase text-sm font-semibold tracking-wider mb-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Optical Magnifying Loupe Verification Details
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600 font-body mt-3">
+            <div>
+              <span class="font-semibold font-mono text-slate-900 block mb-1">1. Optical Magnification Scale</span>
+              Circuit lines and component pads scale up by <code class="bg-slate-100 px-1 py-0.5 border border-slate-200 text-brand-slate font-mono">1.35x</code> directly centered on the cursor, simulating an inspection loupe.
+            </div>
+            <div>
+              <span class="font-semibold font-mono text-slate-900 block mb-1">2. Precision Loupe Bezel</span>
+              Framed by a refined cyan lens rim with an internal curved glass specular reflection and red cardinal optical ticks.
+            </div>
+            <div>
+              <span class="font-semibold font-mono text-slate-900 block mb-1">3. Non-Intrusive Pass-through</span>
+              All overlay layers use <code class="bg-slate-100 px-1 py-0.5 border border-slate-200 text-brand-slate font-mono">pointer-events: none</code>. Cards, buttons, and links remain 100% clickable.
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Interactive Parameter Tuning Dock (Bottom-Right) -->
+  <aside id="tuning-dock" class="fixed bottom-5 right-5 z-50 bg-brand-navy/95 text-slate-200 p-4 border border-slate-700 shadow-2xl backdrop-blur-md max-w-xs text-xs font-mono">
+    <div class="flex items-center justify-between pb-2 border-b border-slate-700/80 mb-3">
+      <span class="font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-brand-red"></span>
+        Magnifier Loupe Tuner
+      </span>
+      <button id="toggle-dock-btn" class="text-slate-400 hover:text-white text-[11px]">_</button>
+    </div>
+
+    <div id="dock-controls" class="space-y-3">
+      <!-- Magnification Zoom Slider -->
+      <div>
+        <div class="flex justify-between mb-1">
+          <label for="slider-zoom" class="text-[11px] text-slate-300 font-semibold text-cyan-300">Magnification Scale:</label>
+          <span id="zoom-val" class="text-cyan-400 font-bold">1.35x</span>
+        </div>
+        <input type="range" id="slider-zoom" min="1.0" max="2.2" step="0.05" value="1.35" class="w-full accent-cyan-400 cursor-pointer">
+      </div>
+
+      <!-- Reveal Radius Slider -->
+      <div>
+        <div class="flex justify-between mb-1">
+          <label for="slider-radius" class="text-[11px] text-slate-300">Loupe Radius:</label>
+          <span id="radius-val" class="text-cyan-400">160px</span>
+        </div>
+        <input type="range" id="slider-radius" min="90" max="280" value="160" class="w-full accent-cyan-400 cursor-pointer">
+      </div>
+
+      <!-- Image Selector -->
+      <div>
+        <label for="select-image" class="text-[11px] text-slate-300 block mb-1">Base Image:</label>
+        <select id="select-image" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-1.5 rounded text-[11px] focus:outline-none">
+          <option value="pcb-interactive/base2.png" selected>base2.png (Red & Blue Lines)</option>
+          <option value="pcb-interactive/base.png">base.png (AdTEC CPCI-SBC Board)</option>
+          <option value="pcb-interactive/reference2.png">reference2.png (CAD Schematic)</option>
+        </select>
+      </div>
+
+      <!-- Blend Mode Selector -->
+      <div>
+        <label for="select-blend" class="text-[11px] text-slate-300 block mb-1">Blend Mode:</label>
+        <select id="select-blend" class="w-full bg-slate-900 border border-slate-700 text-cyan-300 p-1.5 rounded text-[11px] focus:outline-none">
+          <option value="multiply" selected>Multiply (Traces on CAD Grid)</option>
+          <option value="normal">Normal (Opaque Base Image)</option>
+          <option value="darken">Darken</option>
+        </select>
+      </div>
+
+      <!-- Fade Inertia Slider -->
+      <div>
+        <div class="flex justify-between mb-1">
+          <label for="slider-fade" class="text-[11px] text-slate-300">Dissolve Delay:</label>
+          <span id="fade-val" class="text-cyan-400">700ms</span>
+        </div>
+        <input type="range" id="slider-fade" min="200" max="2000" step="50" value="700" class="w-full accent-cyan-400 cursor-pointer">
+      </div>
+
+      <!-- Loupe Bezel Toggle -->
+      <div class="flex items-center justify-between">
+        <label for="chk-bezel" class="text-[11px] text-slate-300 cursor-pointer">Glass Bezel & Reticle</label>
+        <input type="checkbox" id="chk-bezel" checked class="accent-cyan-400 cursor-pointer">
+      </div>
+
+      <!-- Ambient Glow Toggle -->
+      <div class="flex items-center justify-between">
+        <label for="chk-glow" class="text-[11px] text-slate-300 cursor-pointer">Ambient Aura Glow</label>
+        <input type="checkbox" id="chk-glow" checked class="accent-cyan-400 cursor-pointer">
+      </div>
+
+      <!-- Peek Button -->
+      <div class="pt-2 border-t border-slate-800">
+        <button id="btn-peek" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white py-1 px-2 border border-slate-600 transition text-[11px]">
+          Inspect Full Image (Hold to Peek)
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- JAVASCRIPT CONTROLLERS -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. Accessibility & Capability Checks
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isTouchDevice = window.matchMedia('(hover: none) or (pointer: coarse)').matches;
+      if (prefersReducedMotion || isTouchDevice) {
+        return; // Battery & accessibility preservation
+      }
+
+      const container = document.getElementById('main-content');
+      const maskLayer = document.getElementById('pcb-schematic-layer');
+      const baseImageEl = document.getElementById('pcb-base-image-el');
+      const auraLayer = document.getElementById('pcb-cursor-aura');
+      const bezelEl = document.getElementById('pcb-magnifier-bezel');
+      const topZoomBadge = document.getElementById('top-zoom-badge');
+      if (!container || !maskLayer || !baseImageEl) return;
+
+      // Configuration state
+      let config = {
+        radius: 160,
+        zoom: 1.35,      // Optical magnification scale
+        fadeDelay: 700,  // Inactivity fade delay
+        lerpFactor: 0.16 // Smooth follow inertia
+      };
+
+      // Coordinates & Physics tracking
+      let mouseX = -500;
+      let mouseY = -500;
+      let currentX = -500;
+      let currentY = -500;
+      let targetOpacity = 0;
+      let currentOpacity = 0;
+      let isMouseInside = false;
+      let idleTimeout = null;
+      let rafId = null;
+
+      // Apply coordinates to CSS variables
+      function applyCoordinates() {
+        container.style.setProperty('--pcb-x', `${currentX.toFixed(1)}px`);
+        container.style.setProperty('--pcb-y', `${currentY.toFixed(1)}px`);
+        container.style.setProperty('--pcb-radius', `${config.radius}px`);
+        container.style.setProperty('--pcb-zoom', config.zoom.toFixed(2));
+        container.style.setProperty('--pcb-opacity', currentOpacity.toFixed(3));
+      }
+
+      // Physics animation loop using requestAnimationFrame
+      function animateLoop() {
+        // Smoothly interpolate position towards target cursor position
+        currentX += (mouseX - currentX) * config.lerpFactor;
+        currentY += (mouseY - currentY) * config.lerpFactor;
+
+        // Smoothly interpolate opacity
+        currentOpacity += (targetOpacity - currentOpacity) * 0.08;
+
+        applyCoordinates();
+
+        // Continue loop while moving or fading
+        if (Math.abs(currentOpacity - targetOpacity) > 0.005 || Math.abs(currentX - mouseX) > 0.5 || Math.abs(currentY - mouseY) > 0.5) {
+          rafId = requestAnimationFrame(animateLoop);
+        } else {
+          currentOpacity = targetOpacity;
+          applyCoordinates();
+          rafId = null;
+        }
+      }
+
+      function requestAnimation() {
+        if (!rafId) {
+          rafId = requestAnimationFrame(animateLoop);
+        }
+      }
+
+      // Mousemove event handler
+      container.addEventListener('mousemove', function (e) {
+        const rect = container.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+
+        if (!isMouseInside) {
+          isMouseInside = true;
+          // Jump near cursor on first entry
+          if (currentX < 0) {
+            currentX = mouseX;
+            currentY = mouseY;
+          }
+        }
+
+        targetOpacity = 1;
+        requestAnimation();
+
+        // Reset inactivity fade timer
+        if (idleTimeout) clearTimeout(idleTimeout);
+        idleTimeout = setTimeout(() => {
+          // Gradually fade out when cursor becomes stationary
+          targetOpacity = 0;
+          requestAnimation();
+        }, config.fadeDelay);
+      }, { passive: true });
+
+      // Mouseleave event handler
+      container.addEventListener('mouseleave', function () {
+        isMouseInside = false;
+        targetOpacity = 0;
+        if (idleTimeout) clearTimeout(idleTimeout);
+        requestAnimation();
+      });
+
+      // 2. Interactive Parameter Tuner Controls
+      const sliderZoom = document.getElementById('slider-zoom');
+      const zoomVal = document.getElementById('zoom-val');
+      const sliderRadius = document.getElementById('slider-radius');
+      const radiusVal = document.getElementById('radius-val');
+      const sliderFade = document.getElementById('slider-fade');
+      const fadeVal = document.getElementById('fade-val');
+      const chkBezel = document.getElementById('chk-bezel');
+      const chkGlow = document.getElementById('chk-glow');
+      const selectImage = document.getElementById('select-image');
+      const selectBlend = document.getElementById('select-blend');
+      const btnPeek = document.getElementById('btn-peek');
+      const toggleDockBtn = document.getElementById('toggle-dock-btn');
+      const dockControls = document.getElementById('dock-controls');
+
+      if (sliderZoom && zoomVal) {
+        sliderZoom.addEventListener('input', (e) => {
+          config.zoom = parseFloat(e.target.value);
+          zoomVal.textContent = `${config.zoom.toFixed(2)}x`;
+          if (topZoomBadge) topZoomBadge.textContent = `Zoom: ${config.zoom.toFixed(2)}x`;
+          applyCoordinates();
+        });
+      }
+
+      if (sliderRadius && radiusVal) {
+        sliderRadius.addEventListener('input', (e) => {
+          config.radius = parseInt(e.target.value, 10);
+          radiusVal.textContent = `${config.radius}px`;
+          applyCoordinates();
+        });
+      }
+
+      if (sliderFade && fadeVal) {
+        sliderFade.addEventListener('input', (e) => {
+          config.fadeDelay = parseInt(e.target.value, 10);
+          fadeVal.textContent = `${config.fadeDelay}ms`;
+        });
+      }
+
+      if (chkBezel && bezelEl) {
+        chkBezel.addEventListener('change', (e) => {
+          bezelEl.style.display = e.target.checked ? 'block' : 'none';
+        });
+      }
+
+      if (selectImage && baseImageEl) {
+        selectImage.addEventListener('change', (e) => {
+          baseImageEl.style.backgroundImage = `url('${e.target.value}')`;
+        });
+      }
+
+      if (selectBlend && baseImageEl) {
+        selectBlend.addEventListener('change', (e) => {
+          baseImageEl.style.mixBlendMode = e.target.value;
+        });
+      }
+
+      if (chkGlow && auraLayer) {
+        chkGlow.addEventListener('change', (e) => {
+          auraLayer.style.display = e.target.checked ? 'block' : 'none';
+        });
+      }
+
+      // Hold-to-peek full image functionality
+      if (btnPeek && maskLayer) {
+        const startPeek = () => {
+          maskLayer.style.webkitMaskImage = 'none';
+          maskLayer.style.maskImage = 'none';
+          maskLayer.style.opacity = '1';
+        };
+        const endPeek = () => {
+          maskLayer.style.webkitMaskImage = '';
+          maskLayer.style.maskImage = '';
+          applyCoordinates();
+        };
+
+        btnPeek.addEventListener('mousedown', startPeek);
+        btnPeek.addEventListener('mouseup', endPeek);
+        btnPeek.addEventListener('mouseleave', endPeek);
+      }
+
+      if (toggleDockBtn && dockControls) {
+        toggleDockBtn.addEventListener('click', () => {
+          const isHidden = dockControls.style.display === 'none';
+          dockControls.style.display = isHidden ? 'block' : 'none';
+          toggleDockBtn.textContent = isHidden ? '_' : '+';
+        });
+      }
+
+      // 3. 3D Tilt Card & Sheen Controller (Matching index.html)
+      const cards = document.querySelectorAll('.tilt-card');
+      cards.forEach((card) => {
+        const sheen = card.querySelector('.card-sheen');
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const xPercent = (x / rect.width) - 0.5;
+          const yPercent = (y / rect.height) - 0.5;
+          const rotateX = (-yPercent * 10).toFixed(2);
+          const rotateY = (xPercent * 10).toFixed(2);
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.025, 1.025, 1.025)`;
+          if (sheen) {
+            sheen.style.background = `radial-gradient(circle 340px at ${x}px ${y}px, rgba(235, 33, 40, 0.22), rgba(255, 255, 255, 0.12) 35%, transparent 75%)`;
+          }
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
