@@ -5,12 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AdTEC Electronic Instruments | Rugged Embedded Systems & Avionics COTS</title>
-  <meta name="description" content="AdTEC Electronic Instruments Pvt Ltd specializes in end-to-end custom embedded product design, COTS hardware, and mission-critical avionics computing.">
+  <meta name="description"
+    content="AdTEC Electronic Instruments Pvt Ltd specializes in end-to-end custom embedded product design, COTS hardware, and mission-critical avionics computing.">
 
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="AdTEC Electronic Instruments | Rugged Embedded Systems & Avionics COTS">
-  <meta property="og:description" content="Mission-critical avionics computing, rugged COTS hardware, and custom embedded engineering certified to ISO 9001:2015.">
+  <meta property="og:description"
+    content="Mission-critical avionics computing, rugged COTS hardware, and custom embedded engineering certified to ISO 9001:2015.">
   <meta property="og:image" content="assets/slide1.png">
 
   <!-- Favicon Links for All Browsers (Cache-Busted) -->
@@ -30,6 +32,16 @@
     tailwind.config = {
       theme: {
         extend: {
+          screens: {
+            '2xl': '1536px',
+            '3xl': '1920px',
+            '4k': '2560px',
+          },
+          maxWidth: {
+            '8xl': '1440px',
+            '9xl': '1600px',
+            '10xl': '1780px',
+          },
           colors: {
             brand: {
               red: '#eb2128',
@@ -68,18 +80,21 @@
 
   <!-- Main Navbar -->
   <header class="bg-brand-navy sticky top-0 z-50 shadow-md border-b-2 border-brand-red">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex justify-between items-center">
+    <div
+      class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 h-16 sm:h-20 2xl:h-24 flex justify-between items-center">
       <!-- Logo -->
       <a href="index.html" class="flex items-center py-0">
         <img src="assets/logo.png?v=3" alt="AdTEC Electronic Instruments"
-          class="h-10 sm:h-12 md:h-12 lg:h-[70px] w-auto object-contain transition-all">
+          class="h-10 sm:h-12 md:h-12 lg:h-[70px] 2xl:h-[76px] w-auto object-contain transition-all">
       </a>
 
       <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center gap-4 lg:gap-8 font-heading text-sm lg:text-base font-medium tracking-wide">
+      <nav
+        class="hidden md:flex items-center gap-4 lg:gap-8 2xl:gap-12 font-heading text-sm lg:text-base 2xl:text-lg font-medium tracking-wide">
         <a href="#hero-carousel" class="text-white border-b-2 border-brand-red pb-1 whitespace-nowrap">Home</a>
         <a href="#main-content" class="text-slate-300 hover:text-white transition pb-1 whitespace-nowrap">About Us</a>
-        <a href="#products" class="text-slate-300 hover:text-white transition pb-1 flex items-center gap-1 group whitespace-nowrap">
+        <a href="#products"
+          class="text-slate-300 hover:text-white transition pb-1 flex items-center gap-1 group whitespace-nowrap">
           <span>COTS Products</span>
           <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-white transition" fill="none" stroke="currentColor"
             viewBox="0 0 24 24">
@@ -89,12 +104,12 @@
         <a href="#contact" class="text-slate-300 hover:text-white transition pb-1 whitespace-nowrap">Contact Us</a>
       </nav>
 
-      <!-- CTA (Desktop + Tablet) -->
+      <!-- CTA (Desktop + Tablet + 4K) -->
       <div class="hidden sm:flex items-center">
         <a href="#contact"
-          class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-xs lg:text-sm tracking-wide px-3.5 py-2 lg:px-5 lg:py-2.5 transition shadow-sm hover:shadow inline-flex items-center gap-1.5 lg:gap-2 whitespace-nowrap">
+          class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-xs lg:text-sm 2xl:text-base tracking-wide px-3.5 py-2 lg:px-5 lg:py-2.5 2xl:px-7 2xl:py-3 transition shadow-sm hover:shadow inline-flex items-center gap-1.5 lg:gap-2 whitespace-nowrap">
           <span>Request Quote</span>
-          <svg class="w-3.5 h-3.5 lg:w-4 lg:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-3.5 h-3.5 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
             </path>
           </svg>
@@ -117,10 +132,16 @@
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-menu"
       class="hidden md:hidden bg-brand-navy border-t border-slate-800 px-6 py-4 space-y-3 font-heading text-base font-medium shadow-2xl">
-      <a href="#hero-carousel" class="mobile-nav-link block text-white hover:text-brand-red transition py-1.5 border-b border-slate-800/80">Home</a>
-      <a href="#main-content" class="mobile-nav-link block text-slate-300 hover:text-brand-red transition py-1.5 border-b border-slate-800/80">About Us</a>
-      <a href="#products" class="mobile-nav-link block text-slate-300 hover:text-brand-red transition py-1.5 border-b border-slate-800/80">COTS Products</a>
-      <a href="#contact" class="mobile-nav-link block text-slate-300 hover:text-brand-red transition py-1.5">Contact Us</a>
+      <a href="#hero-carousel"
+        class="mobile-nav-link block text-white hover:text-brand-red transition py-1.5 border-b border-slate-800/80">Home</a>
+      <a href="#main-content"
+        class="mobile-nav-link block text-slate-300 hover:text-brand-red transition py-1.5 border-b border-slate-800/80">About
+        Us</a>
+      <a href="#products"
+        class="mobile-nav-link block text-slate-300 hover:text-brand-red transition py-1.5 border-b border-slate-800/80">COTS
+        Products</a>
+      <a href="#contact" class="mobile-nav-link block text-slate-300 hover:text-brand-red transition py-1.5">Contact
+        Us</a>
       <div class="pt-2">
         <a href="#contact"
           class="mobile-nav-link w-full bg-brand-red hover:bg-brand-red-hover text-white text-center py-2.5 font-heading font-medium text-sm uppercase tracking-wide block shadow">
@@ -136,7 +157,7 @@
 
     <!-- Slide 1: Built to Extreme Mil-Spec Standards (Full-Bleed Dark Navy Banner) -->
     <div
-      class="hero-slide active w-full transition-all duration-700 ease-out opacity-100 z-10 translate-x-0 relative min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] flex items-center bg-no-repeat bg-right bg-cover"
+      class="hero-slide active w-full transition-all duration-700 ease-out opacity-100 z-10 translate-x-0 relative min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center bg-no-repeat bg-right bg-cover"
       style="background-image: url('assets/slide1.png'); background-color: #01162e; background-position: right center; background-size: cover; background-repeat: no-repeat;"
       id="slide-bg-4" data-slide="0" data-theme="dark">
 
@@ -146,31 +167,31 @@
       </div>
 
       <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] flex items-center relative z-10 pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28">
+        class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center relative z-10 pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28 2xl:pb-36">
 
-        <div class="relative z-10 max-w-xl lg:max-w-2xl space-y-4 sm:space-y-5">
+        <div class="relative z-10 max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-4 sm:space-y-5 2xl:space-y-7">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 border border-brand-red bg-slate-950/40 backdrop-blur-sm text-brand-red text-xs font-mono font-semibold uppercase tracking-wider">
+            class="inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 border border-brand-red bg-slate-950/40 backdrop-blur-sm text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
             Heritage & Standards
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
           </div>
 
           <h1
-            class="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] drop-shadow-sm uppercase">
+            class="font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-white leading-[1.1] drop-shadow-sm uppercase">
             Built to Extreme <span class="text-brand-red">Mil-Spec Standards</span>
           </h1>
 
-          <p class="text-slate-100 text-sm sm:text-base md:text-lg leading-relaxed font-body drop-shadow-sm">
+          <p class="text-slate-100 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body drop-shadow-sm">
             Turnkey design-to-deployment engineering with 60+ years of pedigree—certified to ISO
             9001:2015 and compliant with MIL-STD-810G, 461E, and DO-254.
           </p>
 
           <div class="pt-2">
             <a href="mailto:sales@adtec.in"
-              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base tracking-wide px-5 sm:px-7 py-3 sm:py-3.5 transition shadow hover:shadow-md inline-flex items-center gap-2">
+              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
               <span>Partner With Our Engineering Team</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
                 </path>
               </svg>
@@ -182,7 +203,7 @@
 
     <!-- Slide 2: Mission Computing (Full-Bleed White Banner) -->
     <div
-      class="hero-slide hidden w-full transition-all duration-700 ease-out opacity-0 z-0 translate-x-8 absolute inset-0 min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] flex items-center bg-no-repeat bg-right bg-cover"
+      class="hero-slide hidden w-full transition-all duration-700 ease-out opacity-0 z-0 translate-x-8 absolute inset-0 min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center bg-no-repeat bg-right bg-cover"
       style="background-image: url('assets/slide2.png'); background-color: #ffffff; background-position: right center; background-size: cover; background-repeat: no-repeat;"
       id="slide-bg-1" data-slide="1" data-theme="light">
 
@@ -192,29 +213,29 @@
       </div>
 
       <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] flex items-center relative z-10 pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28">
-        <div class="relative z-10 max-w-xl lg:max-w-2xl space-y-4 sm:space-y-5">
+        class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center relative z-10 pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28 2xl:pb-36">
+        <div class="relative z-10 max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-4 sm:space-y-5 2xl:space-y-7">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-200 text-brand-red text-xs font-mono font-semibold uppercase tracking-wider">
+            class="inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 bg-red-50 border border-red-200 text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
             Mission Computing & Avionics
           </div>
 
           <h1
-            class="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-slate leading-[1.1] uppercase">
+            class="font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-brand-slate leading-[1.1] uppercase">
             Flight-Proven <span class="text-brand-red">Embedded Systems</span>
           </h1>
 
-          <p class="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed font-body">
+          <p class="text-slate-600 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body">
             High-reliability computing architectures and avionics bus interfaces engineered for uncompromised
             reliability in extreme defense and airborne operations.
           </p>
 
           <div class="pt-2">
             <a href="#products"
-              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base tracking-wide px-5 sm:px-7 py-3 sm:py-3.5 transition shadow hover:shadow-md inline-flex items-center gap-2">
+              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
               <span>Explore COTS Platforms</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
                 </path>
               </svg>
@@ -226,7 +247,7 @@
 
     <!-- Slide 3: Radar & Communications (Full-Bleed White Banner) -->
     <div
-      class="hero-slide hidden w-full transition-all duration-700 ease-out opacity-0 z-0 translate-x-8 absolute inset-0 min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] flex items-center bg-no-repeat bg-right bg-cover"
+      class="hero-slide hidden w-full transition-all duration-700 ease-out opacity-0 z-0 translate-x-8 absolute inset-0 min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center bg-no-repeat bg-right bg-cover"
       style="background-image: url('assets/slide3.png'); background-color: #ffffff; background-position: right center; background-size: cover; background-repeat: no-repeat;"
       id="slide-bg-2" data-slide="2" data-theme="light">
 
@@ -236,29 +257,29 @@
       </div>
 
       <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] flex items-center relative z-10 pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28">
-        <div class="relative z-10 max-w-xl lg:max-w-2xl space-y-4 sm:space-y-5">
+        class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center relative z-10 pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28 2xl:pb-36">
+        <div class="relative z-10 max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-4 sm:space-y-5 2xl:space-y-7">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-200 text-brand-red text-xs font-mono font-semibold uppercase tracking-wider">
+            class="inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 bg-red-50 border border-red-200 text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
             Radar & Communications
           </div>
 
           <h1
-            class="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-slate leading-[1.1] uppercase">
+            class="font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-brand-slate leading-[1.1] uppercase">
             Precision <span class="text-brand-red">RF & Microwave</span> Engineering
           </h1>
 
-          <p class="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed font-body">
+          <p class="text-slate-600 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body">
             Advanced cavity, combline, and lumped component filter solutions delivering steep-skirt
             selectivity and ultra-low insertion loss up to 18 GHz.
           </p>
 
           <div class="pt-2">
             <a href="#products"
-              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base tracking-wide px-5 sm:px-7 py-3 sm:py-3.5 transition shadow hover:shadow-md inline-flex items-center gap-2">
+              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
               <span>View RF Capabilities</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
                 </path>
               </svg>
@@ -270,36 +291,37 @@
 
     <!-- Slide 4: Lifecycle & Obsolescence (Full-Bleed Dark Navy Lab Banner) -->
     <div
-      class="hero-slide hidden w-full transition-all duration-700 ease-out opacity-0 z-0 translate-x-8 absolute inset-0 min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] flex items-center justify-end bg-no-repeat bg-left bg-cover"
+      class="hero-slide hidden w-full transition-all duration-700 ease-out opacity-0 z-0 translate-x-8 absolute inset-0 min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center justify-end bg-no-repeat bg-left bg-cover"
       style="background-image: url('assets/slide4.png'); background-color: #001530; background-position: left center; background-size: cover; background-repeat: no-repeat;"
       id="slide-bg-3" data-slide="3" data-theme="dark">
       <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] flex items-center justify-end relative pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28">
+        class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 w-full min-h-[620px] sm:min-h-[580px] md:min-h-[600px] lg:min-h-[640px] 2xl:min-h-[760px] 3xl:min-h-[840px] flex items-center justify-end relative pt-8 sm:pt-12 md:pt-16 pb-48 sm:pb-36 md:pb-28 2xl:pb-36">
 
-        <div class="relative z-10 max-w-xl lg:max-w-2xl space-y-4 sm:space-y-5 text-left sm:text-right flex flex-col items-start sm:items-end bg-slate-950/80 sm:bg-transparent p-4 sm:p-0 backdrop-blur-sm sm:backdrop-blur-none border border-slate-800/80 sm:border-0">
+        <div
+          class="relative z-10 max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-4 sm:space-y-5 2xl:space-y-7 text-left sm:text-right flex flex-col items-start sm:items-end bg-slate-950/80 sm:bg-transparent p-4 sm:p-0 backdrop-blur-sm sm:backdrop-blur-none border border-slate-800/80 sm:border-0">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 border border-brand-red bg-transparent text-brand-red text-xs font-mono font-semibold uppercase tracking-wider">
+            class="inline-flex items-center gap-2 px-3 py-1 2xl:px-4 2xl:py-1.5 border border-brand-red bg-transparent text-brand-red text-xs 2xl:text-sm font-mono font-semibold uppercase tracking-wider">
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
             Lifecycle Extension
             <span class="w-1.5 h-1.5 bg-brand-red"></span>
           </div>
 
           <h1
-            class="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1] uppercase">
+            class="font-heading text-3xl sm:text-5xl lg:text-6xl 2xl:text-7xl 3xl:text-8xl font-bold tracking-tight text-white leading-[1.1] uppercase">
             Mitigate Lifecycle <span class="text-brand-red">Hardware</span><br>
             <span class="text-brand-red">Obsolescence</span>
           </h1>
 
-          <p class="text-slate-200 text-sm sm:text-base md:text-lg leading-relaxed font-body">
+          <p class="text-slate-200 text-sm sm:text-base md:text-lg 2xl:text-xl 3xl:text-2xl leading-relaxed font-body">
             100% form-fit-function hardware redesigns and FPGA IP core solutions to extend defense
             platform lifespans without modifying host software systems.
           </p>
 
           <div class="pt-2">
             <a href="mailto:sales@adtec.in"
-              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base tracking-wide px-5 sm:px-7 py-3 sm:py-3.5 transition shadow hover:shadow-md inline-flex items-center gap-2">
+              class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium text-sm sm:text-base 2xl:text-lg tracking-wide px-5 sm:px-7 2xl:px-9 py-3 sm:py-3.5 2xl:py-4 transition shadow hover:shadow-md inline-flex items-center gap-2">
               <span>Discover Obsolescence Solutions</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 2xl:w-5 2xl:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
                 </path>
               </svg>
@@ -310,17 +332,17 @@
     </div>
 
     <!-- Centered Carousel Dots Navigation -->
-    <div class="absolute bottom-36 sm:bottom-28 md:bottom-24 left-1/2 -translate-x-1/2 flex items-center gap-2.5 z-30">
-      <button type="button" class="carousel-dot active w-7 h-2.5 rounded-full bg-brand-red transition-all duration-300"
+    <div class="absolute bottom-36 sm:bottom-28 md:bottom-24 2xl:bottom-32 3xl:bottom-36 left-1/2 -translate-x-1/2 flex items-center gap-2.5 2xl:gap-3.5 z-30">
+      <button type="button" class="carousel-dot active w-7 h-2.5 2xl:w-9 2xl:h-3 rounded-full bg-brand-red transition-all duration-300"
         data-target="0" aria-label="Go to Slide 1"></button>
       <button type="button"
-        class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/60 hover:bg-white transition-all duration-300"
+        class="carousel-dot w-2.5 h-2.5 2xl:w-3 2xl:h-3 rounded-full bg-white/60 hover:bg-white transition-all duration-300"
         data-target="1" aria-label="Go to Slide 2"></button>
       <button type="button"
-        class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/60 hover:bg-white transition-all duration-300"
+        class="carousel-dot w-2.5 h-2.5 2xl:w-3 2xl:h-3 rounded-full bg-white/60 hover:bg-white transition-all duration-300"
         data-target="2" aria-label="Go to Slide 3"></button>
       <button type="button"
-        class="carousel-dot w-2.5 h-2.5 rounded-full bg-white/60 hover:bg-white transition-all duration-300"
+        class="carousel-dot w-2.5 h-2.5 2xl:w-3 2xl:h-3 rounded-full bg-white/60 hover:bg-white transition-all duration-300"
         data-target="3" aria-label="Go to Slide 4"></button>
     </div>
 
@@ -328,37 +350,37 @@
     <div id="hero-stats"
       class="absolute bottom-0 left-0 right-0 z-20 w-full transition-colors duration-700 pointer-events-none">
       <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 sm:py-4 md:py-6 grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6 text-left pointer-events-auto">
-        <div class="border-l-2 border-brand-red pl-2.5 sm:pl-4">
+        class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 py-2.5 sm:py-4 md:py-6 2xl:py-8 grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6 2xl:gap-10 text-left pointer-events-auto">
+        <div class="border-l-2 2xl:border-l-4 border-brand-red pl-2.5 sm:pl-4 2xl:pl-6">
           <div
-            class="stat-val font-heading text-lg sm:text-2xl md:text-3xl font-bold tracking-tight transition-colors duration-700 text-white">
+            class="stat-val font-heading text-lg sm:text-2xl md:text-3xl 2xl:text-4xl 3xl:text-5xl font-bold tracking-tight transition-colors duration-700 text-white">
             60+ YRS</div>
           <div
-            class="stat-lbl text-[10px] sm:text-[11px] md:text-xs font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 text-slate-300">
+            class="stat-lbl text-[10px] sm:text-[11px] md:text-xs 2xl:text-sm 3xl:text-base font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 text-slate-300">
             Founding Pedigree</div>
         </div>
-        <div class="border-l-2 border-brand-red pl-2.5 sm:pl-4">
+        <div class="border-l-2 2xl:border-l-4 border-brand-red pl-2.5 sm:pl-4 2xl:pl-6">
           <div
-            class="stat-val font-heading text-lg sm:text-2xl md:text-3xl font-bold tracking-tight transition-colors duration-700 text-white">
+            class="stat-val font-heading text-lg sm:text-2xl md:text-3xl 2xl:text-4xl 3xl:text-5xl font-bold tracking-tight transition-colors duration-700 text-white">
             100+ COTS</div>
           <div
-            class="stat-lbl text-[10px] sm:text-[11px] md:text-xs font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 text-slate-300">
+            class="stat-lbl text-[10px] sm:text-[11px] md:text-xs 2xl:text-sm 3xl:text-base font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 text-slate-300">
             Products in Catalog</div>
         </div>
-        <div class="border-l-2 border-brand-red pl-2.5 sm:pl-4">
+        <div class="border-l-2 2xl:border-l-4 border-brand-red pl-2.5 sm:pl-4 2xl:pl-6">
           <div
-            class="stat-val font-heading text-lg sm:text-2xl md:text-3xl font-bold tracking-tight transition-colors duration-700 text-white">
+            class="stat-val font-heading text-lg sm:text-2xl md:text-3xl 2xl:text-4xl 3xl:text-5xl font-bold tracking-tight transition-colors duration-700 text-white">
             MIL-STD</div>
           <div
-            class="stat-lbl text-[10px] sm:text-[11px] md:text-xs font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 text-slate-300">
+            class="stat-lbl text-[10px] sm:text-[11px] md:text-xs 2xl:text-sm 3xl:text-base font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 text-slate-300">
             810G / 461E / DO-254</div>
         </div>
-        <div class="border-l-2 border-brand-red pl-2.5 sm:pl-4">
+        <div class="border-l-2 2xl:border-l-4 border-brand-red pl-2.5 sm:pl-4 2xl:pl-6">
           <div
-            class="stat-val font-heading text-lg sm:text-2xl md:text-3xl font-bold tracking-tight transition-colors duration-700 text-white">
+            class="stat-val font-heading text-lg sm:text-2xl md:text-3xl 2xl:text-4xl 3xl:text-5xl font-bold tracking-tight transition-colors duration-700 text-white">
             ISO 9001</div>
           <div
-            class="stat-lbl text-[10px] sm:text-[11px] md:text-xs font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 text-slate-300">
+            class="stat-lbl text-[10px] sm:text-[11px] md:text-xs 2xl:text-sm 3xl:text-base font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 text-slate-300">
             2015 Aerospace Certified</div>
         </div>
       </div>
@@ -366,17 +388,17 @@
 
     <!-- Arrow Controls (Adaptive) -->
     <button type="button" id="carousel-prev"
-      class="hidden sm:flex absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-slate-900/80 hover:bg-brand-red text-white items-center justify-center border border-slate-700 shadow-sm transition"
+      class="hidden sm:flex absolute left-4 lg:left-8 2xl:left-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 2xl:w-14 2xl:h-14 bg-slate-900/80 hover:bg-brand-red text-white items-center justify-center border border-slate-700 shadow-sm transition"
       aria-label="Previous Slide">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-5 h-5 2xl:w-7 2xl:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
         </path>
       </svg>
     </button>
     <button type="button" id="carousel-next"
-      class="hidden sm:flex absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-slate-900/80 hover:bg-brand-red text-white items-center justify-center border border-slate-700 shadow-sm transition"
+      class="hidden sm:flex absolute right-4 lg:right-8 2xl:right-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 2xl:w-14 2xl:h-14 bg-slate-900/80 hover:bg-brand-red text-white items-center justify-center border border-slate-700 shadow-sm transition"
       aria-label="Next Slide">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-5 h-5 2xl:w-7 2xl:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
       </svg>
     </button>
@@ -384,32 +406,34 @@
 
   <!-- Main Content Area with Universal Background -->
   <main id="main-content" class="relative bg-slate-100"
-    style="background-image: url('assets/background2.png'); background-position: center top; background-repeat: repeat-y; background-size: 100% auto;">
+    style="background-image: url('assets/background2.png'); background-position: center top; background-repeat: repeat-y; background-size: min(100vw, 2448px) auto;">
 
     <!-- Product Catalog Teaser (Sample Grid) -->
-    <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10">
+    <section id="products" class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 pt-12 sm:pt-16 pb-10 sm:pb-12 lg:pb-14 2xl:pt-20 2xl:pb-16">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8">
         <div>
-          <div class="text-brand-red font-heading tracking-widest text-xs sm:text-sm font-semibold uppercase">Category Catalog
+          <div class="text-brand-red font-heading tracking-widest text-xs sm:text-sm 2xl:text-base font-semibold uppercase">Category
+            Catalog
           </div>
-          <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-brand-slate uppercase tracking-tight mt-1">
+          <h2
+            class="font-heading text-2xl sm:text-3xl md:text-4xl 2xl:text-5xl font-bold text-brand-slate uppercase tracking-tight mt-1">
             High-Reliability Product Solutions
           </h2>
         </div>
-        <a href="#" class="mt-3 md:mt-0 font-heading text-xs sm:text-sm font-medium tracking-wide text-brand-red hover:text-brand-red-hover
+        <a href="#" class="mt-3 md:mt-0 font-heading text-xs sm:text-sm 2xl:text-base font-medium tracking-wide text-brand-red hover:text-brand-red-hover
         flex items-center gap-1">
           Browse all 20 categories →
         </a>
       </div>
 
       <!-- 3 Sample Cards (1 col mobile -> 2 col tablet -> 3 col desktop) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 2xl:gap-10">
 
         <!-- Card 1 -->
         <div
           class="bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden">
           <!-- Card Image Header -->
-          <div class="h-52 md:h-56 lg:h-64 xl:h-72 relative border-b border-slate-100 overflow-hidden">
+          <div class="h-52 md:h-56 lg:h-64 xl:h-72 2xl:h-80 3xl:h-96 relative border-b border-slate-100 overflow-hidden">
             <div
               class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
               style="background-image: url('assets/cards/card1-background1.png');">
@@ -417,34 +441,34 @@
             <div
               class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-transparent pointer-events-none">
             </div>
-            <div class="relative z-10 p-4 sm:p-5 lg:p-6">
+            <div class="relative z-10 p-4 sm:p-5 lg:p-6 2xl:p-7">
               <span
-                class="inline-block text-[11px] font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/95 backdrop-blur-sm border border-red-200 px-2.5 py-1 shadow-sm">
+                class="inline-block text-[11px] 2xl:text-xs font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/95 backdrop-blur-sm border border-red-200 px-2.5 py-1 2xl:px-3 2xl:py-1.5 shadow-sm">
                 Avionics Bus
               </span>
             </div>
           </div>
 
           <!-- Card Content Body -->
-          <div class="p-5 sm:p-6 lg:p-7 flex flex-col flex-1">
-            <div class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">ARINC-429 Series</div>
+          <div class="p-5 sm:p-6 lg:p-7 2xl:p-8 3xl:p-10 flex flex-col flex-1">
+            <div class="text-xs 2xl:text-sm font-mono font-semibold text-slate-400 uppercase tracking-wider">ARINC-429 Series</div>
             <h3
-              class="font-heading text-xl lg:text-2xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
+              class="font-heading text-xl lg:text-2xl 2xl:text-3xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
               AT-PMC-429 Avionics Card
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
+            <p class="text-xs sm:text-sm 2xl:text-base text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
               PCI bus compatible ARINC-429 controller supporting up to 12 configurable channels per PMC card with
               high-density FIFO buffering.
             </p>
 
             <!-- Technical Key Attributes -->
-            <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] font-mono">
-              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">12 Channels</span>
-              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">IEEE P1386.1</span>
+            <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] 2xl:text-xs font-mono">
+              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 2xl:px-2.5 2xl:py-1 border border-slate-200">12 Channels</span>
+              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 2xl:px-2.5 2xl:py-1 border border-slate-200">IEEE P1386.1</span>
             </div>
 
             <!-- Card Action Footer -->
-            <div class="mt-auto pt-5 flex items-center justify-between border-t border-slate-200 text-xs">
+            <div class="mt-auto pt-5 2xl:pt-6 flex items-center justify-between border-t border-slate-200 text-xs 2xl:text-sm">
               <span class="text-slate-500 font-mono font-medium">Form: PMC Card</span>
               <a href="#"
                 class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5 group/link">
@@ -459,7 +483,7 @@
         <div
           class="bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden">
           <!-- Card Image Header -->
-          <div class="h-52 md:h-56 lg:h-64 xl:h-72 relative border-b border-slate-100 overflow-hidden">
+          <div class="h-52 md:h-56 lg:h-64 xl:h-72 2xl:h-80 3xl:h-96 relative border-b border-slate-100 overflow-hidden">
             <div
               class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
               style="background-image: url('assets/cards/card2-background.png');">
@@ -467,34 +491,34 @@
             <div
               class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-transparent pointer-events-none">
             </div>
-            <div class="relative z-10 p-4 sm:p-5 lg:p-6">
+            <div class="relative z-10 p-4 sm:p-5 lg:p-6 2xl:p-7">
               <span
-                class="inline-block text-[11px] font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/95 backdrop-blur-sm border border-red-200 px-2.5 py-1 shadow-sm">
+                class="inline-block text-[11px] 2xl:text-xs font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/95 backdrop-blur-sm border border-red-200 px-2.5 py-1 2xl:px-3 2xl:py-1.5 shadow-sm">
                 Single Board Computer
               </span>
             </div>
           </div>
 
           <!-- Card Content Body -->
-          <div class="p-5 sm:p-6 lg:p-7 flex flex-col flex-1">
-            <div class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">VMEbus Series</div>
+          <div class="p-5 sm:p-6 lg:p-7 2xl:p-8 3xl:p-10 flex flex-col flex-1">
+            <div class="text-xs 2xl:text-sm font-mono font-semibold text-slate-400 uppercase tracking-wider">VMEbus Series</div>
             <h3
-              class="font-heading text-xl lg:text-2xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
+              class="font-heading text-xl lg:text-2xl 2xl:text-3xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
               AT-VME-SBC Core i7
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
+            <p class="text-xs sm:text-sm 2xl:text-base text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
               High-performance 6U VME single board computer powered by multi-core Intel Core i7 with ruggedized thermal
               conduction management.
             </p>
 
             <!-- Technical Key Attributes -->
-            <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] font-mono">
-              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">Intel Core i7</span>
-              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">VxWorks / Linux</span>
+            <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] 2xl:text-xs font-mono">
+              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 2xl:px-2.5 2xl:py-1 border border-slate-200">Intel Core i7</span>
+              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 2xl:px-2.5 2xl:py-1 border border-slate-200">VxWorks / Linux</span>
             </div>
 
             <!-- Card Action Footer -->
-            <div class="mt-auto pt-5 flex items-center justify-between border-t border-slate-200 text-xs">
+            <div class="mt-auto pt-5 2xl:pt-6 flex items-center justify-between border-t border-slate-200 text-xs 2xl:text-sm">
               <span class="text-slate-500 font-mono font-medium">Form: 6U VME</span>
               <a href="#"
                 class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5 group/link">
@@ -509,7 +533,7 @@
         <div
           class="bg-white border border-slate-300/80 shadow-md shadow-slate-900/5 hover:shadow-2xl hover:border-brand-red hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden md:col-span-2 lg:col-span-1 md:max-w-md md:w-full md:mx-auto lg:max-w-none lg:w-auto">
           <!-- Card Image Header -->
-          <div class="h-52 md:h-56 lg:h-64 xl:h-72 relative border-b border-slate-100 overflow-hidden">
+          <div class="h-52 md:h-56 lg:h-64 xl:h-72 2xl:h-80 3xl:h-96 relative border-b border-slate-100 overflow-hidden">
             <div
               class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 ease-out"
               style="background-image: url('assets/cards/card3-background.png');">
@@ -517,34 +541,34 @@
             <div
               class="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-transparent pointer-events-none">
             </div>
-            <div class="relative z-10 p-4 sm:p-5 lg:p-6">
+            <div class="relative z-10 p-4 sm:p-5 lg:p-6 2xl:p-7">
               <span
-                class="inline-block text-[11px] font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/95 backdrop-blur-sm border border-red-200 px-2.5 py-1 shadow-sm">
+                class="inline-block text-[11px] 2xl:text-xs font-mono font-semibold uppercase tracking-wider text-brand-red bg-white/95 backdrop-blur-sm border border-red-200 px-2.5 py-1 2xl:px-3 2xl:py-1.5 shadow-sm">
                 RF & Microwave
               </span>
             </div>
           </div>
 
           <!-- Card Content Body -->
-          <div class="p-5 sm:p-6 lg:p-7 flex flex-col flex-1">
-            <div class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Cavity Filters</div>
+          <div class="p-5 sm:p-6 lg:p-7 2xl:p-8 3xl:p-10 flex flex-col flex-1">
+            <div class="text-xs 2xl:text-sm font-mono font-semibold text-slate-400 uppercase tracking-wider">Cavity Filters</div>
             <h3
-              class="font-heading text-xl lg:text-2xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
+              class="font-heading text-xl lg:text-2xl 2xl:text-3xl font-bold text-brand-slate mt-1.5 tracking-tight group-hover:text-brand-red transition-colors">
               Bandpass Cavity Filters
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
+            <p class="text-xs sm:text-sm 2xl:text-base text-slate-600 mt-2.5 line-clamp-3 leading-relaxed">
               Custom cavity & combline filters engineered for high selectivity, steep rejection skirts, and minimal
               insertion loss across extreme airborne bands.
             </p>
 
             <!-- Technical Key Attributes -->
-            <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] font-mono">
-              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">500 MHz - 18 GHz</span>
-              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 border border-slate-200">Mil-Qualified</span>
+            <div class="mt-4 pt-3 flex flex-wrap gap-2 text-[11px] 2xl:text-xs font-mono">
+              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 2xl:px-2.5 2xl:py-1 border border-slate-200">500 MHz - 18 GHz</span>
+              <span class="bg-slate-100 text-slate-700 px-2 py-0.5 2xl:px-2.5 2xl:py-1 border border-slate-200">Mil-Qualified</span>
             </div>
 
             <!-- Card Action Footer -->
-            <div class="mt-auto pt-5 flex items-center justify-between border-t border-slate-200 text-xs">
+            <div class="mt-auto pt-5 2xl:pt-6 flex items-center justify-between border-t border-slate-200 text-xs 2xl:text-sm">
               <span class="text-slate-500 font-mono font-medium">Low Loss Filter</span>
               <a href="#"
                 class="font-semibold text-brand-red hover:text-brand-red-hover flex items-center gap-1.5 group/link">
@@ -559,73 +583,82 @@
     </section>
 
     <!-- Technical Specs Sample Table (Shows Monospace + DM Sans typography) -->
-    <section class="border-t border-slate-200 py-12 sm:py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <span class="text-brand-red font-heading uppercase text-xs font-semibold tracking-widest">Technical
+    <section class="border-t border-slate-200/80 pt-10 sm:pt-12 lg:pt-14 pb-12 sm:pb-16 2xl:pt-16 2xl:pb-20">
+      <div class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8">
+        <div class="text-center max-w-2xl 2xl:max-w-3xl mx-auto mb-6 sm:mb-8 2xl:mb-12">
+          <span class="text-brand-red font-heading uppercase text-xs 2xl:text-sm font-semibold tracking-widest">Technical
             Precision</span>
-          <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-brand-slate uppercase mt-1">Specifications Grid
+          <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl 2xl:text-5xl font-bold text-brand-slate uppercase mt-1">
+            Specifications Grid
             Treatment</h2>
-          <p class="text-xs sm:text-sm text-slate-500 mt-2">Example of how product spec tabs render with crisp typography, frosted
+          <p class="text-xs sm:text-sm 2xl:text-base text-slate-500 mt-2">Example of how product spec tabs render with crisp
+            typography, frosted
             glass readability, and industrial circuitry background.</p>
         </div>
 
         <!-- Mobile Scroll Hint -->
-        <div class="sm:hidden flex items-center justify-center gap-1.5 text-[11px] font-mono text-slate-500 mb-3 bg-white/80 py-1.5 px-3 border border-slate-300/70 rounded-sm">
+        <div
+          class="sm:hidden flex items-center justify-center gap-1.5 text-[11px] font-mono text-slate-500 mb-3 bg-white/80 py-1.5 px-3 border border-slate-300/70 rounded-sm">
           <svg class="w-3.5 h-3.5 text-brand-red animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
           </svg>
           <span>Swipe horizontally to view full table</span>
         </div>
 
-        <div class="border border-slate-300 shadow-xl overflow-hidden relative bg-cover bg-center"
+        <div class="border border-slate-300 shadow-xl overflow-hidden relative bg-cover bg-center 2xl:rounded-lg"
           style="background-image: url('assets/table-background.png');">
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs min-w-[620px]">
+            <table class="w-full text-left text-xs 2xl:text-sm 3xl:text-base min-w-[620px]">
               <thead>
                 <tr
-                  class="bg-white/80 backdrop-blur-md border-b-2 border-slate-300 font-heading text-sm font-bold text-brand-slate uppercase tracking-wider">
-                  <th class="py-4 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 pr-4 w-[38%]">Feature / Parameter</th>
-                  <th class="py-4 px-6 w-[31%]">Commercial Grade</th>
-                  <th class="py-4 px-6 w-[31%] text-brand-red">Ruggedized (Military)</th>
+                  class="bg-white/80 backdrop-blur-md border-b-2 border-slate-300 font-heading text-sm 2xl:text-base font-bold text-brand-slate uppercase tracking-wider">
+                  <th class="py-4 2xl:py-5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 w-[38%]">Feature / Parameter</th>
+                  <th class="py-4 2xl:py-5 px-6 2xl:px-8 w-[31%]">Commercial Grade</th>
+                  <th class="py-4 2xl:py-5 px-6 2xl:px-8 w-[31%] text-brand-red">Ruggedized (Military)</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-300/70 font-mono"
                 style="text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95), 0 0 8px #ffffff;">
                 <tr class="transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.08) 12%, rgba(255,255,255,0.62) 18%, rgba(255,255,255,0.62) 82%, rgba(255,255,255,0.08) 88%, rgba(255,255,255,0.08) 100%);">
-                  <td class="py-3.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 pr-4 font-body font-semibold text-slate-900">
+                  <td
+                    class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
                     Operating Temperature</td>
-                  <td class="py-3.5 px-6 text-slate-800 font-semibold">0°C to +60°C</td>
-                  <td class="py-3.5 px-6 text-brand-red font-bold">-40°C to +85°C</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">0°C to +60°C</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-brand-red font-bold">-40°C to +85°C</td>
                 </tr>
                 <tr class="transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(248,250,252,0.06) 0%, rgba(248,250,252,0.06) 12%, rgba(248,250,252,0.50) 18%, rgba(248,250,252,0.50) 82%, rgba(248,250,252,0.06) 88%, rgba(248,250,252,0.06) 100%);">
-                  <td class="py-3.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 pr-4 font-body font-semibold text-slate-900">
+                  <td
+                    class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
                     Cooling Method</td>
-                  <td class="py-3.5 px-6 text-slate-800 font-semibold">Air-Cooled (Forced Air)</td>
-                  <td class="py-3.5 px-6 text-slate-900 font-bold">Conduction-Cooled (VITA 20)</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">Air-Cooled (Forced Air)</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-900 font-bold">Conduction-Cooled (VITA 20)</td>
                 </tr>
                 <tr class="transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.08) 12%, rgba(255,255,255,0.62) 18%, rgba(255,255,255,0.62) 82%, rgba(255,255,255,0.08) 88%, rgba(255,255,255,0.08) 100%);">
-                  <td class="py-3.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 pr-4 font-body font-semibold text-slate-900">
+                  <td
+                    class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
                     Form Factor</td>
-                  <td class="py-3.5 px-6 text-slate-800 font-semibold">3U CompactPCI (IEEE 1101.2)</td>
-                  <td class="py-3.5 px-6 text-slate-800 font-semibold">3U CompactPCI Rugged Wedge</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">3U CompactPCI (IEEE 1101.2)</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">3U CompactPCI Rugged Wedge</td>
                 </tr>
                 <tr class="transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(248,250,252,0.06) 0%, rgba(248,250,252,0.06) 12%, rgba(248,250,252,0.50) 18%, rgba(248,250,252,0.50) 82%, rgba(248,250,252,0.06) 88%, rgba(248,250,252,0.06) 100%);">
-                  <td class="py-3.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 pr-4 font-body font-semibold text-slate-900">
+                  <td
+                    class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
                     Operating System Support</td>
-                  <td class="py-3.5 px-6 text-slate-800 font-semibold">Linux, Windows XP/7</td>
-                  <td class="py-3.5 px-6 text-slate-900 font-bold">VxWorks 6.x BSP, RTLinux</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">Linux, Windows XP/7</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-900 font-bold">VxWorks 6.x BSP, RTLinux</td>
                 </tr>
                 <tr class="transition-colors hover:bg-white/50"
                   style="background: linear-gradient(90deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.08) 12%, rgba(255,255,255,0.62) 18%, rgba(255,255,255,0.62) 82%, rgba(255,255,255,0.08) 88%, rgba(255,255,255,0.08) 100%);">
-                  <td class="py-3.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 pr-4 font-body font-semibold text-slate-900">
+                  <td
+                    class="py-3.5 2xl:py-4.5 pl-8 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-44 2xl:pl-56 3xl:pl-64 pr-4 font-body font-semibold text-slate-900">
                     Warranty</td>
-                  <td class="py-3.5 px-6 text-slate-800 font-semibold">1 Year Limited</td>
-                  <td class="py-3.5 px-6 text-slate-800 font-semibold">Extended Options Available</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">1 Year Limited</td>
+                  <td class="py-3.5 2xl:py-4.5 px-6 2xl:px-8 text-slate-800 font-semibold">Extended Options Available</td>
                 </tr>
               </tbody>
             </table>
@@ -637,20 +670,21 @@
 
   <!-- Modern Dark Navy Footer -->
   <footer id="contact"
-    class="bg-brand-navy text-slate-300 pt-12 sm:pt-16 pb-8 sm:pb-12 border-t-2 border-brand-red relative bg-cover bg-center bg-no-repeat"
+    class="bg-brand-navy text-slate-300 pt-12 sm:pt-16 2xl:pt-20 pb-8 sm:pb-12 2xl:pb-16 border-t-2 border-brand-red relative bg-cover bg-center bg-no-repeat"
     style="background-image: url('assets/footer-background.png');">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 relative z-10">
+    <div
+      class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 2xl:gap-16 relative z-10">
 
       <!-- Brand column -->
-      <div class="space-y-4">
+      <div class="space-y-4 2xl:space-y-6">
         <a href="index.html" class="inline-block">
-          <img src="assets/logo.png?v=3" alt="AdTEC Electronic Instruments" class="h-12 sm:h-14 w-auto object-contain">
+          <img src="assets/logo.png?v=3" alt="AdTEC Electronic Instruments" class="h-12 sm:h-14 2xl:h-16 w-auto object-contain">
         </a>
-        <p class="text-xs text-slate-400 leading-relaxed">
+        <p class="text-xs 2xl:text-sm text-slate-400 leading-relaxed">
           AdTEC Electronic Instruments Pvt Ltd specializes in end-to-end custom embedded product design, COTS hardware,
           and mission-critical avionics computing.
         </p>
-        <div class="text-xs text-slate-400 pt-2">
+        <div class="text-xs 2xl:text-sm text-slate-400 pt-2 2xl:pt-3">
           <div class="font-semibold text-white">Headquarters:</div>
           <div>563/1, Prerana Towers, Ranka Colony Road</div>
           <div>Off Bannerghatta Road, Bilekahalli</div>
@@ -661,9 +695,9 @@
       <!-- Quick Links -->
       <div>
         <h4
-          class="font-heading text-sm font-bold text-white uppercase tracking-wider mb-4 border-l-2 border-brand-red pl-2">
+          class="font-heading text-sm 2xl:text-base font-bold text-white uppercase tracking-wider mb-4 2xl:mb-6 border-l-2 border-brand-red pl-2">
           COTS Products</h4>
-        <ul class="text-xs space-y-2 text-slate-400">
+        <ul class="text-xs 2xl:text-sm space-y-2 2xl:space-y-3 text-slate-400">
           <li><a href="#products" class="hover:text-white transition">Single Board Computers</a></li>
           <li><a href="#products" class="hover:text-white transition">ARINC-429 Avionics</a></li>
           <li><a href="#products" class="hover:text-white transition">MIL-STD-1553B Modules</a></li>
@@ -675,9 +709,9 @@
       <!-- Solutions -->
       <div>
         <h4
-          class="font-heading text-sm font-bold text-white uppercase tracking-wider mb-4 border-l-2 border-brand-red pl-2">
+          class="font-heading text-sm 2xl:text-base font-bold text-white uppercase tracking-wider mb-4 2xl:mb-6 border-l-2 border-brand-red pl-2">
           Engineering</h4>
-        <ul class="text-xs space-y-2 text-slate-400">
+        <ul class="text-xs 2xl:text-sm space-y-2 2xl:space-y-3 text-slate-400">
           <li><a href="#products" class="hover:text-white transition">Custom Embedded Design</a></li>
           <li><a href="#products" class="hover:text-white transition">FPGA & Firmware Development</a></li>
           <li><a href="#products" class="hover:text-white transition">Board Obsolescence Handling</a></li>
@@ -689,14 +723,14 @@
       <!-- Contact Info -->
       <div>
         <h4
-          class="font-heading text-sm font-bold text-white uppercase tracking-wider mb-4 border-l-2 border-brand-red pl-2">
+          class="font-heading text-sm 2xl:text-base font-bold text-white uppercase tracking-wider mb-4 2xl:mb-6 border-l-2 border-brand-red pl-2">
           Connect</h4>
-        <div class="text-xs space-y-2 text-slate-400">
+        <div class="text-xs 2xl:text-sm space-y-2 2xl:space-y-3 text-slate-400">
           <div><strong class="text-slate-200">Email:</strong> sales@adtec.in</div>
           <div><strong class="text-slate-200">Support:</strong> support@adtec.in</div>
-          <div class="pt-4">
-            <a href="mailto:sales@adtec.in" class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium tracking-wide text-xs
-              px-5 py-2.5 inline-block transition shadow-sm hover:shadow">
+          <div class="pt-4 2xl:pt-6">
+            <a href="mailto:sales@adtec.in" class="bg-brand-red hover:bg-brand-red-hover text-white font-heading font-medium tracking-wide text-xs 2xl:text-sm
+              px-5 py-2.5 2xl:px-7 2xl:py-3.5 inline-block transition shadow-sm hover:shadow">
               Inquire Now
             </a>
           </div>
@@ -706,9 +740,9 @@
     </div>
 
     <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 mt-10 sm:mt-12 pt-6 border-t border-slate-800 text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left relative z-10">
+      class="max-w-7xl 2xl:max-w-9xl 4k:max-w-10xl mx-auto px-4 sm:px-6 2xl:px-8 mt-10 sm:mt-12 2xl:mt-16 pt-6 2xl:pt-8 border-t border-slate-800 text-xs 2xl:text-sm text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left relative z-10">
       <div>© 2026 AdTEC Electronic Instruments Pvt Ltd. All rights reserved.</div>
-      <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+      <div class="flex flex-wrap justify-center gap-4 sm:gap-6 2xl:gap-8">
         <a href="#" class="hover:text-slate-400">Privacy Policy</a>
         <a href="#" class="hover:text-slate-400">Terms of Use</a>
         <a href="#" class="hover:text-slate-400">Sitemap</a>
@@ -718,37 +752,37 @@
 
   <!-- Combined Mobile Navigation & Carousel Controller Script -->
   <script>
-    // 1. Mobile Navigation Toggle Logic
-    (function () {
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const menuIconOpen = document.getElementById('menu-icon-open');
-      const menuIconClose = document.getElementById('menu-icon-close');
-      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+      // 1. Mobile Navigation Toggle Logic
+      (function () {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-      if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function () {
-          const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-          mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
-          mobileMenu.classList.toggle('hidden');
-          if (menuIconOpen && menuIconClose) {
-            menuIconOpen.classList.toggle('hidden');
-            menuIconClose.classList.toggle('hidden');
-          }
-        });
-
-        mobileNavLinks.forEach(function (link) {
-          link.addEventListener('click', function () {
-            mobileMenu.classList.add('hidden');
-            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        if (mobileMenuBtn && mobileMenu) {
+          mobileMenuBtn.addEventListener('click', function () {
+            const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+            mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
             if (menuIconOpen && menuIconClose) {
-              menuIconOpen.classList.remove('hidden');
-              menuIconClose.classList.add('hidden');
+              menuIconOpen.classList.toggle('hidden');
+              menuIconClose.classList.toggle('hidden');
             }
           });
-        });
-      }
-    })();
+
+          mobileNavLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+              mobileMenu.classList.add('hidden');
+              mobileMenuBtn.setAttribute('aria-expanded', 'false');
+              if (menuIconOpen && menuIconClose) {
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+              }
+            });
+          });
+        }
+      })();
 
     // 2. Hero Carousel Controller with Touch-Swipe
     (function () {
@@ -786,29 +820,29 @@
         const statVals = document.querySelectorAll('.stat-val');
         const statLabels = document.querySelectorAll('.stat-lbl');
         statVals.forEach((val) => {
-          val.className = `stat-val font-heading text-lg sm:text-2xl md:text-3xl font-bold tracking-tight transition-colors duration-700 ${isDark ? 'text-white' : 'text-brand-slate'}`;
+          val.className = `stat-val font-heading text-lg sm:text-2xl md:text-3xl 2xl:text-4xl 3xl:text-5xl font-bold tracking-tight transition-colors duration-700 ${isDark ? 'text-white' : 'text-brand-slate'}`;
         });
         statLabels.forEach((lbl) => {
-          lbl.className = `stat-lbl text-[10px] sm:text-[11px] md:text-xs font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 ${isDark ? 'text-slate-300' : 'text-slate-500'}`;
+          lbl.className = `stat-lbl text-[10px] sm:text-[11px] md:text-xs 2xl:text-sm 3xl:text-base font-mono uppercase tracking-wider mt-0.5 transition-colors duration-700 ${isDark ? 'text-slate-300' : 'text-slate-500'}`;
         });
 
         // Adapt dots indicators
         dots.forEach((dot, idx) => {
           if (idx === currentIndex) {
-            dot.className = 'carousel-dot active w-7 h-2.5 rounded-full bg-brand-red transition-all duration-300';
+            dot.className = 'carousel-dot active w-7 h-2.5 2xl:w-9 2xl:h-3 rounded-full bg-brand-red transition-all duration-300';
           } else {
-            dot.className = `carousel-dot w-2.5 h-2.5 rounded-full transition-all duration-300 ${isDark ? 'bg-white/60 hover:bg-white' : 'bg-slate-300 hover:bg-slate-400'}`;
+            dot.className = `carousel-dot w-2.5 h-2.5 2xl:w-3 2xl:h-3 rounded-full transition-all duration-300 ${isDark ? 'bg-white/60 hover:bg-white' : 'bg-slate-300 hover:bg-slate-400'}`;
           }
         });
 
         // Adapt arrows (preserving hidden sm:flex on small phones)
         if (prevBtn && nextBtn) {
           if (isDark) {
-            prevBtn.className = 'hidden sm:flex absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-slate-900/80 hover:bg-brand-red text-white items-center justify-center border border-slate-700 shadow-sm transition';
-            nextBtn.className = 'hidden sm:flex absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-slate-900/80 hover:bg-brand-red text-white items-center justify-center border border-slate-700 shadow-sm transition';
+            prevBtn.className = 'hidden sm:flex absolute left-4 lg:left-8 2xl:left-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 2xl:w-14 2xl:h-14 bg-slate-900/80 hover:bg-brand-red text-white items-center justify-center border border-slate-700 shadow-sm transition';
+            nextBtn.className = 'hidden sm:flex absolute right-4 lg:right-8 2xl:right-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 2xl:w-14 2xl:h-14 bg-slate-900/80 hover:bg-brand-red text-white items-center justify-center border border-slate-700 shadow-sm transition';
           } else {
-            prevBtn.className = 'hidden sm:flex absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-brand-red hover:text-white text-slate-700 items-center justify-center border border-slate-300 shadow-sm transition';
-            nextBtn.className = 'hidden sm:flex absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-white/90 hover:bg-brand-red hover:text-white text-slate-700 items-center justify-center border border-slate-300 shadow-sm transition';
+            prevBtn.className = 'hidden sm:flex absolute left-4 lg:left-8 2xl:left-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 2xl:w-14 2xl:h-14 bg-white/90 hover:bg-brand-red hover:text-white text-slate-700 items-center justify-center border border-slate-300 shadow-sm transition';
+            nextBtn.className = 'hidden sm:flex absolute right-4 lg:right-8 2xl:right-12 top-1/2 -translate-y-1/2 z-30 w-10 h-10 2xl:w-14 2xl:h-14 bg-white/90 hover:bg-brand-red hover:text-white text-slate-700 items-center justify-center border border-slate-300 shadow-sm transition';
           }
         }
 
